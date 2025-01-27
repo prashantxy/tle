@@ -8,8 +8,8 @@ void solve() {
         int n;
         cin >> n;
         unordered_map<int ,int> seen;
-        bool found = false;                     //koi bhi agar 2 aaya toh nahi hoga
-                                               //overlaping hai  it increases in 1 2 4 8 ..... 
+        bool found = false;                     //koi bhi agar 2 aaya toh hoga
+                                          //overlaping hai  it increases in 1 2 4 8 ..... 
      vector<int>val(n);
         for (int i = 0; i < n; i++) {
             cin >> val[i];
