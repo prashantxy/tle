@@ -38,6 +38,5 @@ signed main()
             cout << (ok ? "YES" : "NO") << '\n';
         }
     }
-
     return 0;
 }
