@@ -1,49 +1,43 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
+#define fio ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
 using namespace std;
-
-void solve(){
+#define int long long
+signed main()
+{
+    fio;
     int t;
     cin >> t;
-    while(t--) {
+    while(t--)
+    {
         int n, q;
-        cin >> n >> q; 
-        
-        vector<int> arr(n);
-        long long sum = 0;
-     
-        for(int i = 0; i < n; i++) {
+        cin >> n >> q;
+        int arr[n];
+        int sum = 0;
+        for(int i = 0; i < n; i++)
+        {
             cin >> arr[i];
             sum += arr[i];
         }
-        
-      
-        while(q--) {
-            int l, r, k;
+        int cur = 0;
+        if(sum & 1) cur = 1;
+        int psum[n + 10];
+        memset(psum, 0, sizeof psum);
+        for(int i = 1; i <= n; i++)
+        {
+            psum[i] = (psum[i - 1] + arr[i - 1]);
+        }
+        int l, r, k;
+        while(q--)
+        {
             cin >> l >> r >> k;
-            
-            
-            l--; r--;
-            
-            
-            int count = r - l + 1;
-            
-            // If k is odd, flipping the parity of the range affects the sum
-            if(k % 2 == 1) {
-                // If the count of elements in the range is odd, toggle the parity
-                if(count % 2 == 1) {
-                    // Toggle parity of the whole sum 
-                    sum = sum % 2 == 0 ? sum + count * k : sum - count * k;
-                }
-            }
-            if(sum % 2 == 1)
-                cout << "YES" << endl;
-            else
-                cout << "NO" << endl;
+            bool ok = false;
+            int a = psum[r] - (psum[l] - arr[l - 1]);
+            k = k * (r - l + 1) + sum - a;
+            if(k & 1)
+                ok = true;
+            cout << (ok ? "YES" : "NO") << '\n';
         }
     }
-}
 
-int main(){
-    solve();
     return 0;
 }
