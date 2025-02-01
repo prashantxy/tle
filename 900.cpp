@@ -9,6 +9,7 @@ int count_knight_forks(int a, int b, int xK, int yK, int xQ, int yQ) {
         {b, a}, {b, -a}, {-b, a}, {-b, -a}
     };
 
+   
     set<pair<int, int>> candidates;
     for (int i = 0; i < 8; i++) {
         int x = xK - moves[i][0];
