@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+    // template 2 Prashant....
 #define int long long
 #define ss stringstream
 #define endl "\n"
