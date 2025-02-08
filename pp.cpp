@@ -5,12 +5,20 @@ using namespace std;
 
 void solve()
 {
-    ll n, k;
-    cin >> n >> k;
+   
+    vector<ll>arr(3);
+    for(int i = 0;i<3;i++){
+        cin>>arr[i];
+    }
+   
+    if(arr[2]==arr[0]+arr[1]){
+        cout<<"+"<<endl;
+    }
+    else{
+        cout<<"-"<<endl;
+    }
 
-    vector<ll> arr(n);
-    for (int i = 0; i < n; i++)
-        cin >> arr[i];
+   
 
      
 
@@ -25,7 +33,7 @@ int main()
     while (T--) 
     { 
            solve();
-           cout<<endl;
+           
     }
 
 }
