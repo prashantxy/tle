@@ -7,9 +7,9 @@ using ll = long long;
         cin>>n;
         vector<int>a(n);
         int x,y,z;
-        x = y = z = -1 ;
+        x = y = z = -1 ; 
         for(int i=0; i<n; i++){
-            cin>>a[i];
+            cin>>a[i]; 
         }
 
         for(int i=1; i<n-1; i++){
@@ -21,16 +21,15 @@ using ll = long long;
                     break;
                 }
             }
-        }
+        } 
         if( (x != y && y!= z) && (x != -1)){
             cout<<"YES"<<endl;
             cout<<x<<" "<<y<<" "<<z<<endl;
-        }
+        } 
         else{
             cout<<"NO"<<endl;
-        }
+        } 
     }
-
     int main() {
         ios_base::sync_with_stdio(false);
         cin.tie(NULL);
