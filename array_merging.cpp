@@ -27,7 +27,7 @@ using ll = long long;
         else{
             cnt = 1;
         }
-        mpp1[arr[i]]= max(arr[i],cnt);
+        mpp1[arr[i]] = max(mpp2[arr[i]],cnt);
        }
        mpp2[arr1[0]]=1;
        cnt = 1;
@@ -38,11 +38,11 @@ using ll = long long;
         else{
             cnt = 1;
         }
-        mpp2[arr1[i]]= max(arr1[i],cnt);
+        mpp2[arr1[i]]= max(mpp2[arr1[i]],cnt);
        }
        int ans = 1;
        for(auto e:st1){
-          ans = max(ans, mpp1[e]+mpp2[e]);
+          ans = max(ans, mpp1[e] + mpp2[e]);
        }
        cout<<ans<<endl;
     }
