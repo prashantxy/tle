@@ -27,7 +27,7 @@ using ll = long long;
         else{
             cnt = 1;
         }
-        mpp1[arr[i]] = max(mpp2[arr[i]],cnt);
+        mpp1[arr[i]] = max(mpp1[arr[i]],cnt);
        }
        mpp2[arr1[0]]=1;
        cnt = 1;
