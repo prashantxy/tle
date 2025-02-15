@@ -13,7 +13,6 @@ int main() {
         cin >> n;
         vector<pair<ll, int>> v(n);
 
-        // Read input and store values with their original indices
         for (int i = 0; i < n; i++) {
             cin >> v[i].first;
             v[i].second = i;
