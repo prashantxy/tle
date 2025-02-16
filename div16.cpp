@@ -9,16 +9,9 @@ void solve() {
         cin >> a[i];
     }
 
-    // Calculate initial score
     unordered_set<int> distinct_elements(a.begin(), a.end());
     int initial_score = n - distinct_elements.size();
 
-    // To maximize the score, we need to minimize the number of distinct elements
-    // and maximize the length of the array after removal.
-    // However, since the score is length - distinct elements, we need to find
-    // a subarray whose removal maximizes (length_after - distinct_after).
-
-    // Precompute first and last occurrence of each element
     unordered_map<int, int> first_occurrence, last_occurrence;
     for (int i = 0; i < n; ++i) {
         if (first_occurrence.find(a[i]) == first_occurrence.end()) {
@@ -27,19 +20,18 @@ void solve() {
         last_occurrence[a[i]] = i;
     }
 
-    // Collect all elements that appear only once
     vector<int> single_occurrence_elements;
-    for (auto& [element, count] : first_occurrence) {
-        if (first_occurrence[element] == last_occurrence[element]) {
-            single_occurrence_elements.push_back(element);
+    for (const auto& pair : first_occurrence) {
+        if (pair.second == last_occurrence[pair.first]) {
+            single_occurrence_elements.push_back(pair.first);
         }
     }
+
     if (single_occurrence_elements.empty()) {
         cout << "0\n";
         return;
     }
 
-    
     int min_l = n, min_r = -1;
     for (int element : single_occurrence_elements) {
         int pos = first_occurrence[element];
@@ -57,11 +49,9 @@ void solve() {
     }
     int new_score = new_length - new_distinct.size();
 
-    // Compare with initial score
     if (new_score > initial_score) {
         cout << min_l + 1 << " " << min_r + 1 << "\n";
     } else if (new_score == initial_score) {
-        // If the score is the same, choose the option that minimizes the final length
         if (new_length < n) {
             cout << min_l + 1 << " " << min_r + 1 << "\n";
         } else {
