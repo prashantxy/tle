@@ -10,15 +10,13 @@ void solve() {
         cin>>arr[i];
     }
     for(int i = 0;i<n;i++){
-        if ((i & (i - 1)) == 0)
-{
+        if((i&(n-1))==i){
             cout<<k<<" ";
         }
         else{
-            cout<<0<<" ";
+            cout<<0<<endl;
         }
     }
-    cout<<endl;
 }
 
 int main() {
@@ -27,7 +25,18 @@ int main() {
     int t;
     cin>>t;
     while(t--){
-        solve();
+     int n;
+     int k;
+     cin>>n>>k;
+     for(int i = 0;i<n;i++){
+        if((i&(n-1))==i){
+            cout<<k<<" ";
+        }
+        else{
+            cout<<0<<" ";
+        }
+     }
+     cout<<endl;
     }
     return 0;
 }
