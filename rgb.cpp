@@ -1,14 +1,15 @@
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
 
-int main(){
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+int main() {
+    long long r, g, b;
+    cin >> r >> g >> b;
     
-   long long int a,b,c;
-   cin>>a>>b>>c;
-   long long int ans = (a+b+c)/3;
-   cout<<ans<<endl;
+    long long sum = r + g + b;
+    long long maxColor = max({r, g, b});
+      
+    long long tables = min(sum / 3, sum - maxColor);
+    cout << tables<<endl;
+    
     return 0;
 }
