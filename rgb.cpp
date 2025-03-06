@@ -10,6 +10,6 @@ int main() {
       
     long long tables = min(sum / 3, sum - maxColor);
     cout << tables<<endl;
-    
+       
     return 0;
 }

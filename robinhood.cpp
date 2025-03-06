@@ -11,11 +11,11 @@ int main()
         long long total = n*(n+1)/2;  
         long long first = n-k;
         long long firstT = first*(first+1)/2;
-        long long sum = total - firstT;
+        long long sum = total - firstT; 
         if(sum%2==0)
-        {
+        { 
             cout<< "YES"<<endl;
-        }
+        } 
         else
         {
             cout<< "NO"<<endl;
