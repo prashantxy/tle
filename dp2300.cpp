@@ -17,7 +17,7 @@ int main(){
     for (int i = 0; i < n; i++){
         cin >> cost[i];
     } 
-    
+      
     const string target = "hard";
     const int m = 4; 
     const long long INF = 1e18;
