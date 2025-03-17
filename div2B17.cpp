@@ -1,18 +1,19 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define REP(i, n) for (int i = 0; i < (n); ++i)
-#define FOR(i, a, b) for (int i = (a); i < (b); ++i)
-#define all(x) (x).begin(), (x).end()
-#define pb push_back
-#define fi first
-#define se second
+
+#define REP(i,n)    for (int i = 0; i < (n); ++i)
+#define FOR(i,a,b)  for (int i = (a); i < (b); ++i)
+#define all(x)      (x).begin(), (x).end()
+#define pb          push_back
+#define fi          first
+#define se          second
 typedef long long ll;
 typedef pair<ll, int> pli;
- 
+
 int main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
- 
+
     int t; 
     cin >> t;
     while(t--){
@@ -25,10 +26,9 @@ int main(){
         sort(all(v), [](const pli &p1, const pli &p2){
             return p1.fi > p2.fi;
         });
- 
         ll maxVal = v[0].fi;
         int freq = 0;
-        for (auto &p : v){
+        for(auto &p : v){
             if(p.fi == maxVal) freq++;
             else break;
         }
