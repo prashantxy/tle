@@ -1,0 +1,254 @@
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+// #define Prashant 1
+
+// Speed
+#define Code ios_base::sync_with_stdio(false);
+#define By cin.tie(NULL);
+#define pdubey1924_macro cout.tie(NULL);  // Renamed the macro to avoid conflict
+
+// Aliases
+using ll = long long;
+using lld = long double;
+
+// Constants
+const lld pi = 3.141592653589793238;
+const ll INF = LONG_LONG_MAX;
+const ll mod = 1e9 + 7;
+
+// TypeDEf
+typedef pair<ll, ll> pll;
+typedef vector<ll> vll;
+typedef vector<pll> vpll;
+typedef vector<string> vs;
+typedef unordered_map<ll, ll> umll;
+typedef map<ll, ll> mll;
+
+// Macros
+#define ff first
+#define ss second
+#define pb push_back
+#define mp make_pair
+#define fl(i, n) for (int i = 0; i < n; i++)
+#define rl(i, m, n) for (int i = n; i >= m; i--)
+#define py cout << "YES\n";
+#define pm cout << "-1\n";
+#define pn cout << "NO\n";
+#define vr(v) v.begin(), v.end()
+#define rv(v) v.end(), v.begin()
+
+// Debug
+#ifdef Prashant
+#define debug(x)       \
+    cerr << #x << " "; \
+    cerr << x << " ";  \
+    cerr << endl;
+#else
+#define debug(x) ;
+#endif
+
+// Operator overloads
+template <typename T1, typename T2>
+istream &operator>>(istream &istream, pair<T1, T2> &p) {
+    return (istream >> p.first >> p.second);
+}
+template <typename T>
+istream &operator>>(istream &istream, vector<T> &v) {
+    for (auto &it : v)
+        cin >> it;
+    return istream;
+}
+template <typename T1, typename T2>
+ostream &operator<<(ostream &ostream, const pair<T1, T2> &p) {
+    return (ostream << p.first << " " << p.second);
+}
+template <typename T>
+ostream &operator<<(ostream &ostream, const vector<T> &c) {
+    for (auto &it : c)
+        cout << it << " ";
+    return ostream;
+}
+
+// Utility functions
+template <typename T>
+void print(T &&t) { cout << t << "\n"; }
+void printarr(ll arr[], ll n) {
+    fl(i, n) cout << arr[i] << " ";
+    cout << "\n";
+}
+template <typename T>
+void printvec(vector<T> v) {
+    ll n = v.size();
+    fl(i, n) cout << v[i] << " ";
+    cout << "\n";
+}
+template <typename T>
+ll sumvec(vector<T> v) {
+    ll n = v.size();
+    ll s = 0;
+    fl(i, n) s += v[i];
+    return s;
+}
+
+// Mathematical functions
+ll gcd(ll a, ll b) {
+    if (b == 0)
+        return a;
+    return gcd(b, a % b);
+}
+ll lcm(ll a, ll b) { return (a / gcd(a, b) * b); }
+ll moduloMultiplication(ll a, ll b, ll mod) {
+    ll res = 0;
+    a %= mod;
+    while (b) {
+        if (b & 1)
+            res = (res + a) % mod;
+        b >>= 1;
+    }
+    return res;
+}
+ll powermod(ll x, ll y, ll p) {
+    ll res = 1;
+    x = x % p;
+    if (x == 0)
+        return 0;
+    while (y > 0) {
+        if (y & 1)
+            res = (res * x) % p;
+        y = y >> 1;
+        x = (x * x) % p;
+    }
+    return res;
+}
+
+// Sorting
+bool sorta(const pair<int, int> &a, const pair<int, int> &b) { return (a.second < b.second); }
+bool sortd(const pair<int, int> &a, const pair<int, int> &b) { return (a.second > b.second); }
+
+// Bits
+string decToBinary(int n) {
+    string s = "";
+    int i = 0;
+    while (n > 0) {
+        s = to_string(n % 2) + s;
+        n = n / 2;
+        i++;
+    }
+    return s;
+}
+ll binaryToDecimal(string n) {
+    string num = n;
+    ll dec_value = 0;
+    int base = 1;
+    int len = num.length();
+    for (int i = len - 1; i >= 0; i--) {
+        if (num[i] == '1')
+            dec_value += base;
+        base = base * 2;
+    }
+    return dec_value;
+}
+
+// Check functions
+bool isPrime(ll n) {
+    if (n <= 1)
+        return false;
+    if (n <= 3)
+        return true;
+    if (n % 2 == 0 || n % 3 == 0)
+        return false;
+    for (int i = 5; i * i <= n; i += 6) {
+        if (n % i == 0 || n % (i + 2) == 0)
+            return false;
+    }
+    return true;
+}
+bool isPowerOfTwo(int n) {
+    if (n == 0)
+        return false;
+    return (ceil(log2(n)) == floor(log2(n)));
+}
+bool isPerfectSquare(ll x) {
+    if (x >= 0) {
+        ll sr = sqrt(x);
+        return (sr * sr == x);
+    }
+    return false;
+}
+vector<int> sievePrimes(int maxLimit) {
+    vector<bool> is_prime(maxLimit + 1, true);
+    is_prime[0] = is_prime[1] = false;
+    for (int i = 2; i * i <= maxLimit; i++) {
+        if (is_prime[i]) {
+            for (int j = i * i; j <= maxLimit; j += i) {
+                is_prime[j] = false;
+            }
+        }
+    }
+    vector<int> primes;
+    for (int i = 2; i <= maxLimit; i++) {
+        if (is_prime[i])
+            primes.push_back(i);
+    }
+    return primes;
+}
+
+vector<int> primes; 
+bool canBePalindrome(const vector<int>& a, int x) {
+    int l = 0, r = a.size() - 1;
+    while(l < r) {
+        if(a[l] == a[r]) {
+            l++;
+            r--;
+        } else if(a[l] == x) {
+            l++;
+        } else if(a[r] == x) {
+            r--;
+        } else {
+            return false;
+        }
+    }
+    return true;
+}
+
+void solve() {
+    int n;
+        cin >> n;
+        vector<int> w(n);
+        for (int i = 0; i < n; i++){
+            cin >> w[i];
+        }
+        
+        int l = 0, r = n - 1;
+        long long left_sum = w[l], right_sum = w[r];
+        int ans = 0;
+        while(l < r){
+            if(left_sum == right_sum){
+                ans = max(ans, (l + 1) + (n - r));
+            }
+            if(left_sum <= right_sum){
+                l++;
+                left_sum += w[l];
+            } else {  
+                r--;
+                right_sum += w[r];
+            }
+        }
+        
+        cout << ans << "\n";
+}
+ 
+// Main
+int main() {
+    Code By pdubey1924_macro  
+    int t;
+    cin >> t;
+    
+    fl(i, t) {
+        solve();
+    }
+    return 0;
+}
+// End
