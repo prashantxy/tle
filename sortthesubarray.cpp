@@ -199,39 +199,28 @@ vector<int> primes;
 void solve() {
     int n;
     cin >> n;
-    set<int> avail;
-    for (int i = 1; i <= n; i++) {
-        avail.insert(i);
-    }
     
-    ll S = 0; 
-    vector<int> perm(n);
-    for (int i = 1; i <= n; i++) {
-        bool found = false;
-        int chosen = -1;
-        for (int p : primes) {
-            ll L = (ll)(p - 1) * i - S + 1; 
-            ll R = (ll)p * i - S;          
-            L = max(L, 1LL);  
-            auto it = avail.lower_bound((int)L);
-            if (it != avail.end() && *it <= R) {
-                chosen = *it;
-                found = true;
-                break;
-            }
-            if (L > n) break;
-        }
-        if (!found) {
-            chosen = *avail.begin();
-        }
-        perm[i - 1] = chosen;
-        avail.erase(chosen);
-        S += chosen;
+    vector<int> a(n), b(n);
+   
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    for (int i = 0; i < n; ++i) cin >> b[i];
+    
+    int l = 0, r = n - 1;
+   
+    while (l < n && a[l] == b[l])
+        l++;
+    
+    while (r >= 0 && a[r] == b[r])
+        r--;
+   
+    while (l > 0 && b[l] >= b[l - 1]) {
+        l--;
     }
-    for (int x : perm) {
-        cout << x << " ";
+    while (r < n - 1 && b[r] <= b[r + 1]) {
+        r++;
     }
-    cout << "\n";
+    cout << l + 1 << " " << r + 1 << "\n";
+    
 }
  
 // Main
