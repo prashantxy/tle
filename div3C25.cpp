@@ -7,7 +7,7 @@ using namespace std;
 // Speed
 #define Code ios_base::sync_with_stdio(false);
 #define By cin.tie(NULL);
-#define pdubey1924_macro cout.tie(NULL); 
+#define pdubey1924_macro cout.tie(NULL);  
 
 // Aliases
 using ll = long long;
@@ -182,28 +182,21 @@ bool isPerfectSquare(ll x) {
 // Code by Prashant Dubey
 // Language C++
 // Code
-ll maxDesksInRow(ll m, ll L) {
-    ll b= m / (L + 1);
-    ll r = m % (L + 1);
-    return b * L + min(L, r);
-}
 
 void solve() {
-    ll n, m, k;
-    cin >> n >> m >> k;
-    ll low = 1, high = m, ans = m;
-    while (low <= high) {
-        ll mid = low + (high - low) / 2;
-        ll capacity = n * maxDesksInRow(m, mid);
-        if (capacity >= k) {
-            ans = mid;
-            high = mid - 1;
-        } else {
-            low = mid + 1;
-        }
+    ll n;
+    cin >> n;
+    if(n % 2 == 0 && n > 1){
+        cout << -1 << "\n";
+        return;
     }
-    
-    cout << ans << "\n";
+    vector<ll> perm(n);
+    for(ll i = 0; i < n; i++){
+        perm[i] = ((2 * i) % n) + 1;
+    }
+    for(auto num : perm)
+        cout << num << " ";
+    cout << "\n";
 }
 
 // Main
