@@ -182,42 +182,33 @@ bool isPerfectSquare(ll x) {
 // Code by Prashant Dubey
 // Language C++
 // Code
-
-vll primes;
-
-void sieve(ll MAX_N) {
-    vector<bool> isPrime(MAX_N + 1, true);
-    isPrime[0] = isPrime[1] = false;
-    for (ll i = 2; i * i <= MAX_N; i++) {
-        if (isPrime[i]) {
-            for (ll j = i * i; j <= MAX_N; j += i) {
-                isPrime[j] = false;
-            }
-        }
-    }
-    for (ll i = 2; i <= MAX_N; i++) {
-        if (isPrime[i])
-            primes.pb(i);
-    }
+ll maxDesksInRow(ll m, ll L) {
+    ll b= m / (L + 1);
+    ll r = m % (L + 1);
+    return b * L + min(L, r);
 }
 
 void solve() {
-    ll n;
-    cin >> n;
-    ll count = 0;
-    for(auto p: primes) {
-        if(p > n) break;
-        count += n / p;
+    ll n, m, k;
+    cin >> n >> m >> k;
+    ll low = 1, high = m, ans = m;
+    while (low <= high) {
+        ll mid = low + (high - low) / 2;
+        ll capacity = n * maxDesksInRow(m, mid);
+        if (capacity >= k) {
+            ans = mid;
+            high = mid - 1;
+        } else {
+            low = mid + 1;
+        }
     }
-    cout << count << "\n";
+    
+    cout << ans << "\n";
 }
 
 // Main
 int main() {
     Code By pdubey1924_macro  
-    const ll MAX_N = 10000000;
-    sieve(MAX_N);
-    
     ll t;
     cin >> t;
     fl(i, t) {
