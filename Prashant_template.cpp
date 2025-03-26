@@ -202,14 +202,7 @@ void sieve(ll MAX_N) {
 }
 
 void solve() {
-    ll n;
-    cin >> n;
-    ll count = 0;
-    for(auto p: primes) {
-        if(p > n) break;
-        count += n / p;
-    }
-    cout << count << "\n";
+   
 }
 
 // Main

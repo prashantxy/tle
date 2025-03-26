@@ -1,74 +1,41 @@
-#include <iostream>
-#include <vector>
+#include<bits/stdc++.h>
+#define fio ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+#define debug(_) cout << #_ << " is " << _ << '\n';
+
 using namespace std;
- 
-int main(){
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    
+using ll        = long long;
+using ld        = long double;
+const ll mod    = 1e9 + 7;
+const ll N      = 2e5 + 10;
+const ll inf    = 1e9;
+const ll linf   = 1e18;
+
+int main()
+{
+    fio;
     int t;
     cin >> t;
-    const long long LL = 1000000000000000000LL;
-    while(t--){
+    while (t--) {
         int n;
         cin >> n;
-        vector<long long> a(n);
-        for (int i = 0; i < n; i++){
-            cin >> a[i];
+        vector<ll> v(n);
+        for (auto& i : v) {
+            cin >> i;
         }
-        if(n == 2){
-            long long kCandidate = LL;
-            long long r0 = a[0] % kCandidate;
-            long long r1 = a[1] % kCandidate;
-            if(r0 == 0 || r1 == 0){
-                cout << LL << "\n";
-            } else {
-                cout << kCandidate << "\n";
+        ll ans = -1;
+        ll x = 2;
+        while(x) {
+            set<ll> s;
+            for (auto& i : v) {
+                s.insert(i % x);
             }
-            continue;
-        }
-        bool hasEven = false, hasOdd = false;
-        for (int i = 0; i < n; i++){
-            if(a[i] % 2 == 0) 
-                hasEven = true;
-            else 
-                hasOdd = true;
-        }
-        if(hasEven && hasOdd){
-            cout << 2 << "\n";
-            continue;
-        }
-        bool found = false;
-        for(long long k = 2; k < 10000; k++){
-            long long r0 = -1, r1 = -1;
-            bool valid = true;
-            int distinctCount = 0;
-            for (int i = 0; i < n; i++){
-                long long r = a[i] % k;
-                if(r0 == -1){
-                    r0 = r;
-                    distinctCount++;
-                } else if(r == r0){
-                  
-                } else if(r1 == -1){
-                    r1 = r;
-                    distinctCount++;
-                } else if(r == r1){
-                  
-                } else {
-                    valid = false;
-                    break;
-                }
-            }
-            if(valid && distinctCount == 2){
-                cout << k << "\n";
-                found = true;
+            if (s.size() == 2) {
+                ans = x;
                 break;
             }
+            x *= 2;
         }
-        if(!found){
-            cout << LL << "\n";
-        }
+        cout << ans << '\n';
     }
     return 0;
 }
