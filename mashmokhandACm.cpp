@@ -6,7 +6,7 @@ const int MOD = 1000000007;
 int main() {
     int n, k;
     cin >> n >> k;
-    vector<int> dp(n + 1, 1);
+    vector<int> dp(n + 1, 1); 
     for (int length = 2; length <= k; ++length) {
         vector<int> new_dp(n + 1, 0);
         for (int j = 1; j <= n; ++j) {
