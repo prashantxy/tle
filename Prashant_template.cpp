@@ -200,28 +200,9 @@ void sieve(ll MAX_N) {
             primes.pb(i);
     }
 }
+
 void solve() {
-    ll n, m, k;
-    cin >> n >> m >> k;
-    
-    vll broken(n);
-    for (int i = 0; i < n; i++) {
-        cin >> broken[i];
-    }
-    ll totalLength = broken.back() - broken.front() + 1;
-    vll gaps;
-    for (int i = 0; i < n - 1; i++) {
-        ll gap = broken[i+1] - broken[i] - 1;
-        if (gap > 0) {
-            gaps.pb(gap);
-        }
-    }
-    sort(gaps.begin(), gaps.end(), greater<ll>());
-    for (int i = 0; i < k - 1 && i < gaps.size(); i++) {
-        totalLength -= gaps[i];
-    }
-    
-    cout << totalLength << "\n";
+   
 }
 
 // Main
@@ -232,8 +213,9 @@ int main() {
     
     ll t;
     cin >> t;
-   
+    fl(i, t) {
         solve();
-    
+    }
     return 0;
 }
+// End
