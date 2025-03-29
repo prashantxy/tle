@@ -179,6 +179,66 @@ bool isPerfectSquare(ll x) {
     return false;
 }
 
+//-------------------------
+// Graph Algorithms Section
+//-------------------------
+
+// Depth-First Search (DFS) - Recursive implementation
+void dfs(int node, vector<bool> &visited, const vector<vector<int>> &graph) {
+    visited[node] = true;
+    for (int neighbor : graph[node]) {
+        if (!visited[neighbor])
+            dfs(neighbor, visited, graph);
+    }
+}
+
+// Breadth-First Search (BFS)
+void bfs(int start, vector<bool> &visited, const vector<vector<int>> &graph) {
+    queue<int> q;
+    q.push(start);
+    visited[start] = true;
+    while (!q.empty()) {
+        int node = q.front();
+        q.pop();
+        for (int neighbor : graph[node]) {
+            if (!visited[neighbor]) {
+                visited[neighbor] = true;
+                q.push(neighbor);
+            }
+        }
+    }
+}
+
+// Disjoint Set Union (Union-Find)
+struct DSU {
+    vector<int> parent, rank;
+    DSU(int n) {
+        parent.resize(n);
+        rank.resize(n, 0);
+        for (int i = 0; i < n; i++)
+            parent[i] = i;
+    }
+    int find(int x) {
+        if (parent[x] != x)
+            parent[x] = find(parent[x]);
+        return parent[x];
+    }
+    void unionSet(int x, int y) {
+        int px = find(x), py = find(y);
+        if (px == py)
+            return;
+        if (rank[px] < rank[py])
+            swap(px, py);
+        parent[py] = px;
+        if (rank[px] == rank[py])
+            rank[px]++;
+    }
+};
+
+//-------------------------
+// End of Graph Algorithms
+//-------------------------
+
 // Code by Prashant Dubey
 // Language C++
 // Code
