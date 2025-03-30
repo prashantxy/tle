@@ -34,8 +34,9 @@ typedef map<ll, ll> mll;
 #define mp make_pair
 #define fl(i, n) for (int i = 0; i < n; i++)
 #define rl(i, m, n) for (int i = n; i >= m; i--)
-#define pm cout << "-1\n";
-#define pn cout << "NO\n";
+// Removed: #define py cout << "YES\n"
+#define pm cout << "-1\n"
+#define pn cout << "NO\n"
 #define vr(v) v.begin(), v.end()
 #define rv(v) v.end(), v.begin()
 
@@ -259,9 +260,32 @@ void sieve(ll MAX_N) {
             primes.pb(i);
     }
 }
-
 void solve() {
-    // Write your solution here.
+    ll n;
+    cin >> n;
+    vector<ll> dolls(n);
+    for (ll i = 0; i < n; i++) {
+        cin >> dolls[i];
+    }
+    map<ll, ll> freq;
+    for (auto x : dolls) {
+        freq[x]++;
+    }
+    
+    ll sets = 0;
+    for (auto &p : freq) {
+        ll size = p.first;
+        ll count = p.second;
+        ll prevCount = 0;
+        if (freq.find(size - 1) != freq.end()) {
+            prevCount = freq[size - 1];
+        }
+        if (count > prevCount) {
+            sets += (count - prevCount);
+        }
+    }
+    
+    cout << sets << "\n";
 }
 
 // Main
