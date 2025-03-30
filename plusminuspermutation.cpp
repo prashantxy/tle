@@ -261,9 +261,28 @@ void sieve(ll MAX_N) {
 }
 
 void solve() {
+    ll n, x, y;
+    cin >> n >> x >> y;
     
+    if(x == y) {
+        cout << 0 << "\n";
+        return;
+    }
+   
+    ll countX = n / x;
+    ll countY = n / y;
+    ll l = lcm(x, y);
+    ll countBoth = n / l;
+    
+    ll posCount = countX - countBoth;
+    ll negCount = countY - countBoth;
+    
+    ll S_pos = posCount * n - (posCount * (posCount - 1)) / 2;
+   
+    ll S_neg = (negCount * (negCount + 1)) / 2;
+    cout << S_pos - S_neg << "\n";
 }
-
+  
 // Main
 int main() {
     Code By pdubey1924_macro  
