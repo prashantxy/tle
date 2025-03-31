@@ -261,7 +261,31 @@ void sieve(ll MAX_N) {
 }
 
 void solve() {
-   
+    int n;
+    long long x;
+    cin >> n >> x;
+    vector<long long> a(n);
+    for (int i = 0; i < n; i++){
+        cin >> a[i];
+    }
+    sort(a.begin(), a.end());
+    vector<long long> prefix(n+1, 0);
+    for (int i = 1; i <= n; i++){
+        prefix[i] = prefix[i-1] + a[i-1];
+    }
+    
+    long long ans = 0;
+    long long day = 1;
+    for (int k = n; k >= 1; k--){
+        if(prefix[k] > x) continue;
+        long long d_k = (x - prefix[k]) / k + 1;
+        if(d_k < day) continue;
+        long long cnt = d_k - day + 1; 
+        ans += cnt * k;
+        day = d_k + 1; 
+    }
+    
+    cout << ans << "\n";
 }
 
 // Main
