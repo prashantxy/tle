@@ -261,74 +261,55 @@ void sieve(ll MAX_N) {
 }
 
 void solve() {
-    int n, k;
-    cin >> n >> k;
-    vector<int> colors(n);
-    for (int i = 0; i < n; i++){
-        cin >> colors[i];
+    ll n;
+    cin >> n;
+    vll a(n);
+    cin >> a;
+    
+    if(a[n - 2] > a[n - 1]){
+        cout << "-1\n";
+        return;
     }
-    vector<vector<int>> pos(k+1);
-    for (int i = 0; i < n; i++){
-        pos[colors[i]].push_back(i+1); 
-    }
-    auto bestForColor = [&](int c) -> int {
-        if(pos[c].empty()){
-            return n / 2; 
-        }
-        
-        vector<int> gaps;
-       
-        gaps.push_back(pos[c][0] - 1);
-        
-        for (int i = 1; i < pos[c].size(); i++){
-            gaps.push_back(pos[c][i] - pos[c][i-1] - 1);
-        }
-        gaps.push_back(n - pos[c].back());
-        
-        int base = 0; 
-        for (int g : gaps) {
-            base = max(base, g);
-        }
-        int cnt = 0;
-        for (int g : gaps) {
-            if (g == base) cnt++;
-        }
-        int second_max = 0;
-        for (int g : gaps) {
-            if (g != base) {
-                second_max = max(second_max, g);
+   
+    if(a[n - 1] < 0) {
+        bool sorted = true;
+        for (int i = 0; i < n - 1; i++) {
+            if(a[i] > a[i+1]) {
+                sorted = false;
+                break;
             }
         }
-        auto splitVal = [&](int g) -> int {
-            if(g <= 1) return 0;
-            return g / 2;
-        };
-        
-        int bestWithPaint;
-        if (cnt >= 2) {
-            bestWithPaint = base;
-        } else {
-            int candidate_gap = splitVal(base);
-            bestWithPaint = max(candidate_gap, second_max);
+        if(!sorted) {
+            cout << "-1\n";
+            return;
         }
-        
-        return min(base, bestWithPaint);
-    };
-    
-    int ans = 1e9 + 7;
-    for (int c = 1; c <= k; c++){
-        ans = min(ans, bestForColor(c));
+        else {
+            cout << "0\n";
+            return;
+        }
     }
-    cout << ans << "\n";
+    vector<tuple<ll, ll, ll>> ops;
+    for (int i = n - 3; i >= 0; i--) {
+        if(a[i] > a[i+1]){
+            a[i] = a[i+1] - a[n - 1];
+            ops.pb({i+1, i+2, n});
+        }
+    }
+    
+    cout << ops.size() << "\n";
+    for(auto &op : ops){
+        ll x, y, z;
+        tie(x, y, z) = op;
+        cout << x << " " << y << " " << z << "\n";
+    }
 }
-  
-// Main
+
 int main() {
     Code By pdubey1924_macro  
     const ll MAX_N = 10000000;
     sieve(MAX_N);
     
-    int t;
+    ll t;
     cin >> t;
     fl(i, t) {
         solve();
