@@ -261,35 +261,7 @@ void sieve(ll MAX_N) {
 }
 
 void solve() {
-    int n, m;
-    cin >> n >> m;
-    
-    vector<vector<int>> cards(n, vector<int>(m));
-    for (int i = 0; i < n; i++){
-        for (int j = 0; j < m; j++){
-            cin >> cards[i][j];
-        }
-    }
-    
-    long long totalWinnings = 0;
-    
    
-    for (int j = 0; j < m; j++){
-        vector<int> col(n);
-        for (int i = 0; i < n; i++){
-            col[i] = cards[i][j];
-        }
-        
-       
-        sort(col.begin(), col.end());
-       
-        for (int i = 0; i < n; i++){
-            long long coef = 2LL * (i + 1) - n - 1;
-            totalWinnings += coef * col[i];
-        }
-    }
-    
-    cout << totalWinnings << "\n"; 
 }
 
 // Main
