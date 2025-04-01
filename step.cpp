@@ -272,16 +272,11 @@ void solve() {
     cout<<(k+1)*(k+1)<<endl;
    }
 }
-
-// Main
 int main() {
     Code By pdubey1924_macro  
     const ll MAX_N = 10000000;
     sieve(MAX_N);
-    
-   
         solve();
-    
     return 0;
 }
 // End
