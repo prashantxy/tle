@@ -260,8 +260,45 @@ void sieve(ll MAX_N) {
     }
 }
 
+void factorize(int x, map<int, long long>& factors) {
+    for (int d = 2; d * d <= x; d++) {
+        while (x % d == 0) {
+            factors[d]++;
+            x /= d;
+        }
+    }
+    if (x > 1) { 
+        factors[x]++;
+    }
+}
+
 void solve() {
-   
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    
+    map<int, long long> totalFactors;
+    for (int i = 0; i < n; i++) {
+        int x = a[i];
+        map<int, long long> curFactors;
+        factorize(x, curFactors);
+        for (auto& pr : curFactors) {
+            totalFactors[pr.first] += pr.second;
+        }
+    }
+    
+    bool possible = true;
+    for (auto& pr : totalFactors) {
+        if (pr.second % n != 0) {
+            possible = false;
+            break;
+        }
+    }
+    
+    cout << (possible ? "YES" : "NO") << "\n";
 }
 
 // Main
@@ -271,12 +308,10 @@ int main() {
     sieve(MAX_N);
     
     ll t;
-    cin>>t;
-    f(i,t){
+    cin >> t;
+    fl(i, t) {
         solve();
     }
-       
-    
     return 0;
 }
 // End
