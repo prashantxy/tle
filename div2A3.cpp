@@ -17,7 +17,9 @@ void solve() {
     cin >> t;
     
     while (t--) {
-        
+        int n;
+        cin>>n;
+        cout<<2*n<<endl;
     }
 }
 
