@@ -260,23 +260,67 @@ void sieve(ll MAX_N) {
     }
 }
 
-void solve() {
-   
+bool canAchieve(ll X, int n, int k, const string &s, const vector<ll> &a) {
+ 
+    int ops = 0;
+    int i = 0;
+    while(i < n) {
+      
+        if (a[i] > X && s[i]=='R') {
+            i++;
+            continue;
+        }
+       
+        int j = i;
+        bool needPaint = false;
+        while(j < n && !(a[j] > X && s[j]=='R')) {
+            
+            if(a[j] > X && s[j]=='B') needPaint = true;
+            j++;
+        }
+        if(needPaint) ops++;
+        i = j;
+    }
+    return (ops <= k);
 }
 
-// Main
+void solve() {
+    int n, k;
+    cin >> n >> k;
+    string s;
+    cin >> s;
+    vector<ll> a(n);
+    for (int i = 0; i < n; i++){
+        cin >> a[i];
+    }
+    
+   
+    ll lo = 0, hi = 0;
+    for(auto &v : a) hi = max(hi, v);
+    ll ans = hi;
+    while(lo <= hi) {
+        ll mid = (lo + hi) / 2;
+        if(canAchieve(mid, n, k, s, a)) {
+            ans = mid;
+            hi = mid - 1;
+        } else {
+            lo = mid + 1;
+        }
+    }
+    cout << ans << "\n";
+}
+ 
 int main() {
     Code By pdubey1924_macro  
     const ll MAX_N = 10000000;
     sieve(MAX_N);
     
-    ll t;
-    cin>>t;
-   while(t--){
+    int t;
+    cin >> t;
+    while(t--){
         solve();
     }
-       
-    
+        
     return 0;
 }
 // End

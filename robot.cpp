@@ -261,22 +261,72 @@ void sieve(ll MAX_N) {
 }
 
 void solve() {
+    ll n, x, k;
+    cin >> n >> x >> k;
+    string s;
+    cin >> s;
    
+    vector<ll> prefix(n+1, 0);
+    for (ll i = 1; i <= n; i++){
+        prefix[i] = prefix[i-1] + (s[i-1]=='R' ? 1 : -1);
+    }
+    
+    ll first_reset = -1;
+    for (ll i = 1; i <= n; i++){
+        if(x + prefix[i] == 0){
+            first_reset = i;
+            break;
+        }
+    }
+    
+    if(first_reset == -1 || first_reset > k){
+        cout << 0 << "\n";
+        return;
+    }
+   
+    ll ans = 1;
+    ll timeSpent = first_reset;
+    
+    ll cycle_reset = -1;
+    for (ll i = 1; i <= n; i++){
+        if(prefix[i] == 0){
+            cycle_reset = i;
+            break;
+        }
+    }
+    
+    if(cycle_reset == -1){
+        cout << ans << "\n";
+        return;
+    }
+    
+    ll remaining = k - timeSpent;
+    ll fullCycles = remaining / cycle_reset;
+    ans += fullCycles;
+    timeSpent += fullCycles * cycle_reset;
+    remaining = k - timeSpent;
+    
+    for (ll i = 1; i <= n && i <= remaining; i++){
+        if(prefix[i] == 0){
+            ans++;
+            break;
+        }
+    }
+    
+    cout << ans << "\n";
 }
-
-// Main
+ 
 int main() {
     Code By pdubey1924_macro  
     const ll MAX_N = 10000000;
     sieve(MAX_N);
     
     ll t;
-    cin>>t;
-   while(t--){
+    cin >> t;
+    while(t--){
         solve();
     }
-       
-    
+        
     return 0;
 }
 // End
