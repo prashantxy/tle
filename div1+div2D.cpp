@@ -258,7 +258,7 @@ void solve() {
     ll n,m,k;
     cin >>n>>m>>k;
     ll r = n-m*k;
-    ll x = max(r,m);
+    ll x = max(n/(m+1),k);
     vector<ll> a(n);
     for (ll i = 0;i<n;i++) {
         a[i] = i % x;
