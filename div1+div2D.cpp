@@ -255,18 +255,7 @@ void sieve(ll MAX_N) {
 }
 
 void solve() {
-    ll n,m,k;
-    cin >>n>>m>>k;
-    ll r = n-m*k;
-    ll x = max(n/(m+1),k);
-    vector<ll> a(n);
-    for (ll i = 0;i<n;i++) {
-        a[i] = i % x;
-    }
-    for (ll i = 0;i<n;i++) {
-        cout<<a[i]<<" ";
-    }
-    cout<<"\n";
+   
 }
 //main
 int main() {
