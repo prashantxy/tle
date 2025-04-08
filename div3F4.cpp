@@ -225,71 +225,63 @@ void sieve(ll MAX_N) {
             primes.pb(i);
 }
 
-ll global_mex(const vll &a) {
-    ll n = a.size();
-    vector<bool> present(n + 2, false);
-    for (auto &x : a)
-        if (x <= n)
-            present[x] = true;
-
-    ll m = 0;
-    while (present[m]) m++;
-    return m;
-}
-
-bool canPartition(const vll &a, ll k, ll x) {
-    if (x == 0) return true;
-    ll countSegments = 0;
-    vector<bool> seen(x, false);
-    ll cnt = 0;
-
-    for (auto num : a) {
-        if (num < x && !seen[num]) {
-            seen[num] = true;
-            cnt++;
-        }
-        if (cnt == x) {
-            countSegments++;
-            fill(seen.begin(), seen.end(), false);
-            cnt = 0;
-            if (countSegments >= k) return true;
-        }
-    }
-    return false;
-}
-
 void solve() {
-    ll n, k;
-    cin >> n >> k;
-    vll a(n);
+    ll n, m;
+    cin >> n >> m;
+    vector<string> a(n);
     cin >> a;
+    
+    vector<vector<string>> b(m, vector<string>(n));
+    for (int i = 0; i < m; i++)
+        cin >> b[i];
 
-    ll g = global_mex(a);
-    ll low = 0, high = g, ans = 0;
-
-    while (low <= high) {
-        ll mid = (low + high) / 2;
-        if (canPartition(a, k, mid)) {
-            ans = mid;
-            low = mid + 1;
-        } else {
-            high = mid - 1;
+    for (int j = 0; j < n; j++) {
+        bool ok = false;
+        for (int i = 0; i < m; i++) {
+            if (b[i][j] == a[j]) { ok = true; break; }
+        }
+        if (!ok) { 
+            cout << -1 << "\n";
+            return;
         }
     }
-
-    cout << ans << "\n";
+    
+    int L = 1; 
+    for (int i = 0; i < m; i++) {
+        int cur = 0;
+        for (int j = 0; j < n; j++) {
+            if (b[i][j] == a[j]) {
+                cur++;
+                L = max(L, cur);
+            } else {
+                cur = 0;
+            }
+        }
+    }
+    int ans = 0;
+    if(n>=m)
+    {
+        ans = 2 * n - (L - 1);
+    }
+    else{
+       ans = 3* n - (L - 1);
+    } 
+    
+    cout<< ans <<"\n";
 }
 
+// Main
 int main() {
-    Code By pdubey1924_macro
+    Code; By; pdubey1924_macro;
+    
     const ll MAX_N = 10000000;
     sieve(MAX_N);
-
+    
     ll t;
     cin >> t;
-    while (t--) {
+    while(t--) {
         solve();
     }
-
+    
     return 0;
 }
