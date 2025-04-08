@@ -13,36 +13,41 @@ int main(){
         int n;
         cin >> n;
         vector<ll> a(n);
-        for (int i=0; i<n; i++){
+        for (int i = 0; i < n; i++){
             cin >> a[i];
         }
         sort(a.begin(), a.end());
+       
         unordered_map<ll,ll> dp;
         dp[0] = 0;
         for (ll monsters : a) {
             unordered_map<ll,ll> new_dp;
+          
             for (auto &entry : dp) {
                 ll x = entry.first;
                 ll cost = entry.second;
+                
                 {
                     ll nx = x + monsters;
                     ll ncost = cost + monsters;
-                  
                     if (!new_dp.count(nx) || new_dp[nx] > ncost)
                         new_dp[nx] = ncost;
                 }
-               
-                if(monsters >= x){
+                
+                if(monsters >= x && x > 0){
+                  
                     ll diff = monsters - x;
-             
+                  
                     for (int d = 0; d < 2; d++){
+                       
                         ll k = diff / 2;
                         if(d == 1 && k > 0) k--;
-             
+                     
                         if (x + k > monsters) continue;
                         if (monsters - k < x + k) continue;
                         
                         ll cost_split = (diff - k) + 1; 
+                      
                         ll newCombo = monsters - x - 2 * k; 
                         ll ncost = cost + cost_split;
                         if (!new_dp.count(newCombo) || new_dp[newCombo] > ncost)
@@ -50,6 +55,7 @@ int main(){
                     }
                 }
             }
+            
             
             unordered_map<ll,ll> filt;
             for(auto &pr : new_dp){

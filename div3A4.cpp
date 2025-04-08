@@ -7,7 +7,7 @@ using namespace std;
 // Speed
 #define Code ios_base::sync_with_stdio(false);
 #define By cin.tie(NULL);
-#define pdubey1924_macro cout.tie(NULL);
+#define pdubey1924_macro cout.tie(NULL); 
 
 // Aliases
 using ll = long long;
@@ -178,7 +178,11 @@ bool isPerfectSquare(ll x) {
     return false;
 }
 
+//-------------------------
 // Graph Algorithms Section
+//-------------------------
+
+// Depth-First Search (DFS) - Recursive implementation
 void dfs(int node, vector<bool> &visited, const vector<vector<int>> &graph) {
     visited[node] = true;
     for (int neighbor : graph[node]) {
@@ -187,6 +191,7 @@ void dfs(int node, vector<bool> &visited, const vector<vector<int>> &graph) {
     }
 }
 
+// Breadth-First Search (BFS)
 void bfs(int start, vector<bool> &visited, const vector<vector<int>> &graph) {
     queue<int> q;
     q.push(start);
@@ -203,6 +208,7 @@ void bfs(int start, vector<bool> &visited, const vector<vector<int>> &graph) {
     }
 }
 
+// Disjoint Set Union (Union-Find)
 struct DSU {
     vector<int> parent, rank;
     DSU(int n) {
@@ -255,27 +261,31 @@ void sieve(ll MAX_N) {
 }
 
 void solve() {
-    int n;
-    cin >> n;
-    long long ans = 1;
-    for (int i = 2; i <= n; ++i) {
-        ans = ans * i + 1;
+    ll n;
+    cin>>n;
+    if(n&1){
+        cout<<"YES"<<endl;
     }
-    cout << ans << endl;
+    else if(n==2||n%2==0){
+        cout<<"NO"<<endl;
+    }
 }
 
-
-
-//main
+// Main
 int main() {
-    Code By pdubey1924_macro
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
+    Code By pdubey1924_macro  
+    const ll MAX_N = 10000000;
+    sieve(MAX_N);
     
+     ll t;
+     cin>>t;
+     while(t--){
         solve();
+     }
+        
     
-    
+       
     
     return 0;
 }
-//end
+// End
