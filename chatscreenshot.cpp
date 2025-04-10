@@ -259,39 +259,46 @@ bool canPartition(const vll &a, ll k, ll x) {
 }
 
 void solve() {
-    int n;
-    cin >> n;
-    vector<ll> a(n);
-    bool allZero = true;
-    for (int i = 0; i < n; i++) {
-        cin >> a[i];
-        if(a[i] != 0)
-            allZero = false;
+    int n, k;
+    cin >> n >> k;
+    vector<vector<int>> graph(n);
+    vector<int> indegree(n, 0);
+    for (int i = 0; i < k; i++) {
+        vector<int> screen(n);
+        for (int j = 0; j < n; j++) {
+            cin >> screen[j];
+            screen[j]--;
+        }
+        for (int j = 1; j < n - 1; j++) {
+            int u = screen[j];
+            int v = screen[j + 1];
+            graph[u].push_back(v);
+            indegree[v]++;
+        }
     }
     
-    if(allZero) {
-        for (int k = 1; k <= n; k++)
-            cout << k << " ";
-        cout << "\n";
-        return;
+    queue<int> q;
+    for (int i = 0; i < n; i++) {
+        if (indegree[i] == 0)
+            q.push(i);
     }
-    ll d = 0;
-    for (int bit = 0; bit < 30; bit++) {
-        ll cnt = 0;
-        for (int i = 0; i < n; i++) {
-            if(a[i] & (1LL << bit))
-                cnt++;
+    
+    int count = 0;
+    while (!q.empty()) {
+        int u = q.front();
+        q.pop();
+        count++;
+        for (int v : graph[u]) {
+            indegree[v]--;
+            if (indegree[v] == 0)
+                q.push(v);
         }
-        if(cnt > 0) {
-            if(d == 0) d = cnt;
-            else d = gcd(d, cnt);
-        }
     }
-    for (int k = 1; k <= n; k++) {
-        if(d % k == 0)
-            cout << k << " ";
-    }
-    cout << "\n";
+    
+    if (count == n)
+        cout << "YES\n";
+    else
+        cout << "NO\n";
 }
 
 int main() {
