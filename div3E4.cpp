@@ -259,25 +259,7 @@ bool canPartition(const vll &a, ll k, ll x) {
 }
 
 void solve() {
-    ll n, k;
-    cin >> n >> k;
-    vll a(n);
-    cin >> a;
-
-    ll g = global_mex(a);
-    ll low = 0, high = g, ans = 0;
-
-    while (low <= high) {
-        ll mid = (low + high) / 2;
-        if (canPartition(a, k, mid)) {
-            ans = mid;
-            low = mid + 1;
-        } else {
-            high = mid - 1;
-        }
-    }
-
-    cout << ans << "\n";
+   
 }
 
 int main() {
