@@ -259,25 +259,69 @@ void sieve(ll MAX_N) {
             primes.pb(i);
     }
 }
+int countBits(ll x) {
+    int cnt = 0;
+    while (x) {
+        cnt += x & 1;
+        x >>= 1;
+    }
+    return cnt;
+}
+
+ll countPairs(ll k) {
+    ll res = 0;
+    for (ll x = 0; x <= k; ++x) {
+        ll y = k - x;
+        if ((x & y) == 0) {
+            int bits = countBits(x);
+            res += (1LL << bits); 
+        }
+    }
+    return res;
+}
 
 void solve() {
-    ll n;
-    cin >> n;
+    ll n, k;
+    cin >> n >> k;
     
-    vector<int> a(n);
+    vector<ll> a(n);
     for (int i = 0; i < n; i++) cin >> a[i];
     
-    ll sum_a = 0, cnt_1 = 0;
-    for (int x: a) {
-        sum_a += x;
-        if (x == 1) cnt_1++;
+    ll lb = 0, ub = *max_element(a.begin(),a.end()) + k;
+    ll ans = 0;
+    while (lb <= ub) {
+        ll tm = (lb + ub) / 2;
+        bool good = false;
+        
+        for (int i = 0; i < n; i++) {
+            vector<ll> min_needed(n);
+            min_needed[i] = tm;
+            
+            ll c_used = 0;
+            for (int j = i; j < n; j++) {
+                if (min_needed[j] <= a[j]) break;
+                
+                if (j + 1 >= n) {
+                    c_used = k + 1;
+                    break;
+                }
+                
+                c_used += min_needed[j] - a[j];
+                min_needed[j + 1] = max(0LL, min_needed[j] - 1);
+            }
+            
+            if (c_used <= k) good = true;
+        }
+        
+        if (good) {
+            ans = tm;
+            lb = tm + 1;
+        } else {
+            ub = tm - 1;
+        }
     }
     
-    if (sum_a >= cnt_1 + n && n > 1) {
-        cout << "YES" <<endl;
-    } else {
-        cout << "NO" <<endl;
-    }
+    cout << ans <<endl;
 }
 
 // Main
