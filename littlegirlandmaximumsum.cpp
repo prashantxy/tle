@@ -261,7 +261,36 @@ void sieve(ll MAX_N) {
 }
 
 void solve() {
-   
+    int n, q;
+    cin >> n >> q;
+    vector<long long> arr(n);
+    for (int i = 0; i < n; i++){
+        cin >> arr[i];
+    }
+    
+    vector<long long> freq(n, 0);
+    
+    while(q--){
+        int l, r;
+        cin >> l >> r;
+        
+        freq[l-1] += 1;
+        if (r < n) {
+            freq[r] -= 1;
+        }
+    }
+    for (int i = 1; i < n; i++){
+        freq[i] += freq[i-1];
+    }
+    sort(arr.begin(), arr.end(), greater<long long>());
+    sort(freq.begin(), freq.end(), greater<long long>());
+    
+    long long maxSum = 0;
+    for (int i = 0; i < n; i++){
+        maxSum += arr[i] * freq[i];
+    }
+    
+    cout << maxSum << "\n";
 }
 
 // Main
@@ -269,14 +298,12 @@ int main() {
     Code By pdubey1924_macro  
     const ll MAX_N = 10000000;
     sieve(MAX_N);
-    
-    ll t;
-    cin>>t;
-   while(t--){
+   
+  
         solve();
-    }
        
     
     return 0;
 }
 // End
+
