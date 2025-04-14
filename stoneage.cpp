@@ -261,38 +261,52 @@ void sieve(ll MAX_N) {
 }
 
 void solve() {
-   ll n, q;
+    ll n, q;
     cin >> n >> q;
 
-    vector<long long> a(n);
+    vector<ll> a(n);
+    ll sum = 0;
     for (int i = 0; i < n; ++i) {
         cin >> a[i];
+        sum += a[i];
     }
 
+    ll curr_val = -1; 
+    unordered_map<int, ll> overrides;
+
     while (q--) {
-        int t;
+        ll t;
         cin >> t;
 
         if (t == 1) {
-            int i;
-            long long x;
+            ll i;
+            ll x;
             cin >> i >> x;
-            a[i - 1] = x;
-        } else if (t == 2) {
-            long long x;
-            cin >> x;
-            for (int i = 0; i < n; ++i) {
-                a[i] = x;
-            }
-        }
+            --i;
 
-        // calculate sum after each query
-        long long sum = 0;
-        for (int i = 0; i < n; ++i) {
-            sum += a[i];
+            ll old_val;
+            if (curr_val == -1) {
+                old_val = a[i];
+            } else {
+                if (overrides.count(i)) old_val = overrides[i];
+                else old_val = curr_val;
+            }
+
+            sum += x - old_val;
+
+            if (curr_val == -1) a[i] = x;
+            else overrides[i] = x;
+        }
+        else if (t == 2) {
+            ll x;
+            cin >> x;
+            curr_val = x;
+            sum = x * 1LL * n;
+            overrides.clear();
         }
 
         cout << sum << '\n';
+    }
 }
 
 // Main
@@ -301,11 +315,9 @@ int main() {
     const ll MAX_N = 10000000;
     sieve(MAX_N);
     
-    ll t;
-    cin>>t;
-   while(t--){
+   
         solve();
-    }
+    
        
     
     return 0;
