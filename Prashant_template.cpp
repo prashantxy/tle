@@ -261,38 +261,7 @@ void sieve(ll MAX_N) {
 }
 
 void solve() {
-   ll n, q;
-    cin >> n >> q;
-
-    vector<long long> a(n);
-    for (int i = 0; i < n; ++i) {
-        cin >> a[i];
-    }
-
-    while (q--) {
-        int t;
-        cin >> t;
-
-        if (t == 1) {
-            int i;
-            long long x;
-            cin >> i >> x;
-            a[i - 1] = x;
-        } else if (t == 2) {
-            long long x;
-            cin >> x;
-            for (int i = 0; i < n; ++i) {
-                a[i] = x;
-            }
-        }
-
-        // calculate sum after each query
-        long long sum = 0;
-        for (int i = 0; i < n; ++i) {
-            sum += a[i];
-        }
-
-        cout << sum << '\n';
+   
 }
 
 // Main

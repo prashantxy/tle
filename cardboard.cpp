@@ -2,7 +2,7 @@
 using namespace std;
 
 using ll = long long;
-// template ki maa ki chut
+// template ki maa ki chutg
 bool safeMul(ll a, ll b, ll limit, ll &res) {
   
     if (a == 0 || b == 0) {
