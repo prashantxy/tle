@@ -259,7 +259,9 @@ void sieve(ll MAX_N) {
             primes.pb(i);
     }
 }
-
+ll compute_area(const vector<ll>& s, ll w, ll sum_s, ll sum_sq, int n) {
+    return sum_sq + 4 * w * sum_s + 4 * w * w * n;
+}
 void solve() {
     ll n, q;
     cin >> n >> q;
