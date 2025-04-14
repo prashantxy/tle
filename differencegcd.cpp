@@ -261,7 +261,31 @@ void sieve(ll MAX_N) {
 }
 
 void solve() {
-    
+    int n;
+        ll l, r;
+        cin >> n >> l >> r;
+        vector<long long> ans(n);
+        bool possible = true;
+        
+        for (int i = 1; i <= n; i++){
+            ll k_min = (l + i - 1) / i; 
+            ll k_max = r / i;          
+            if (k_min > k_max) {
+                possible = false;
+                break;
+            }
+            ans[i-1] = i * k_min;
+        }
+        
+        if (!possible) {
+            cout << "NO" << "\n";
+        } else {
+            cout << "YES" << "\n";
+            for (int i = 0; i < n; i++){
+                cout << ans[i] << " ";
+            }
+            cout << "\n";
+}
 }
 
 // Main
