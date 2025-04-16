@@ -263,16 +263,29 @@ ll f(ll a, ll b) {
     return (a % 2 && b % 2) ? a + b - 1 : a + b;
 }
 void solve() {
-    int n;cin>>n;
-    for(int i=1;i<=n;i++)cin>>a[i];
-    for(int i=1;i<=n;i++)cin>>b[i];
-    int mx=INT_MIN;
-    for(int i=1;i<=n;i++)mx=max(mx,a[i]-b[i]);
-    int c=0;
-    for(int i=1;i<=n;i++)c+=(a[i]-b[i]==mx);
-    cout<<c<<"\n";
-    for(int i=1;i<=n;i++)if(a[i]-b[i]==mx)cout<<i<<' ';
-    cout<<"\n";  
+    ll n; 
+    cin >> n;
+    vector <int> a(n);
+    for(int i = 0; i < n; i++){
+        cin >> a[i];
+    }
+    vector<ll> res;
+    for(int i = 0; i < n; i++){
+        ll l = 1, r = i + 1;
+        while(l <= r){
+            ll m = (l + r) / 2;
+            if(a[i - m + 1] >= m){
+                l = m + 1;
+            }else{
+                r = m - 1;
+            }
+        }
+        res.push_back(r);
+    }
+    for(auto i : res){
+        cout << i << " ";
+    }
+    cout<<"\n"; 
 }
 
 // Main

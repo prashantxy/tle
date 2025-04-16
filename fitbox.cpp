@@ -259,20 +259,35 @@ void sieve(ll MAX_N) {
             primes.pb(i);
     }
 }
+
 ll f(ll a, ll b) {
     return (a % 2 && b % 2) ? a + b - 1 : a + b;
 }
+
 void solve() {
-    int n;cin>>n;
-    for(int i=1;i<=n;i++)cin>>a[i];
-    for(int i=1;i<=n;i++)cin>>b[i];
-    int mx=INT_MIN;
-    for(int i=1;i<=n;i++)mx=max(mx,a[i]-b[i]);
-    int c=0;
-    for(int i=1;i<=n;i++)c+=(a[i]-b[i]==mx);
-    cout<<c<<"\n";
-    for(int i=1;i<=n;i++)if(a[i]-b[i]==mx)cout<<i<<' ';
-    cout<<"\n";  
+        ll n, w;
+        ll box_width;
+        cin >> n >> box_width;
+        multiset<int> st;
+        for (int i = 0; i < n; i++) {
+            cin >> w;
+            st.insert(w);
+        }
+        ll height = 1, space_left = box_width;
+        while (!st.empty()) {
+            auto it = st.upper_bound(space_left);
+            if (it != st.begin()) {
+                it--;
+                ll val = *it;
+                space_left -= val;
+                st.erase(it);
+            } else {
+                space_left = box_width;
+                height++;
+            }
+        }
+
+        cout << height << endl;
 }
 
 // Main
