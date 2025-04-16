@@ -71,27 +71,6 @@ ostream &operator<<(ostream &ostream, const vector<T> &c) {
     return ostream;
 }
 
-// Utility functions
-template <typename T>
-void print(T &&t) { cout << t << "\n"; }
-void printarr(ll arr[], ll n) {
-    fl(i, n) cout << arr[i] << " ";
-    cout << "\n";
-}
-template <typename T>
-void printvec(vector<T> v) {
-    ll n = v.size();
-    fl(i, n) cout << v[i] << " ";
-    cout << "\n";
-}
-template <typename T>
-ll sumvec(vector<T> v) {
-    ll n = v.size();
-    ll s = 0;
-    fl(i, n) s += v[i];
-    return s;
-}
-
 // Mathematical functions
 ll gcd(ll a, ll b) {
     if (b == 0)
@@ -178,11 +157,7 @@ bool isPerfectSquare(ll x) {
     return false;
 }
 
-//-------------------------
-// Graph Algorithms Section
-//-------------------------
-
-// Depth-First Search (DFS) - Recursive implementation
+// Graph Algorithms
 void dfs(int node, vector<bool> &visited, const vector<vector<int>> &graph) {
     visited[node] = true;
     for (int neighbor : graph[node]) {
@@ -190,8 +165,6 @@ void dfs(int node, vector<bool> &visited, const vector<vector<int>> &graph) {
             dfs(neighbor, visited, graph);
     }
 }
-
-// Breadth-First Search (BFS)
 void bfs(int start, vector<bool> &visited, const vector<vector<int>> &graph) {
     queue<int> q;
     q.push(start);
@@ -207,8 +180,6 @@ void bfs(int start, vector<bool> &visited, const vector<vector<int>> &graph) {
         }
     }
 }
-
-// Disjoint Set Union (Union-Find)
 struct DSU {
     vector<int> parent, rank;
     DSU(int n) {
@@ -234,49 +205,32 @@ struct DSU {
     }
 };
 
-//-------------------------
-// End of Graph Algorithms
-//-------------------------
-
-// Code by Prashant Dubey
-// Language C++
-// Code
-
-vll primes;
-
-void sieve(ll MAX_N) {
-    vector<bool> isPrime(MAX_N + 1, true);
-    isPrime[0] = isPrime[1] = false;
-    for (ll i = 2; i * i <= MAX_N; i++) {
-        if (isPrime[i]) {
-            for (ll j = i * i; j <= MAX_N; j += i) {
-                isPrime[j] = false;
-            }
+set<ll> specialNumbers;
+void precompute() {
+    for (ll k = 2; k <= 1000; ++k) {
+        ll sum = 1 + k, power = k * k;
+        for (int cnt = 2; cnt <= 20; ++cnt) {
+            sum += power;
+            if (sum > 1e6) break;
+            specialNumbers.insert(sum);
+            power *= k;
         }
     }
-    for (ll i = 2; i <= MAX_N; i++) {
-        if (isPrime[i])
-            primes.pb(i);
-    }
-}
-ll f(ll a, ll b) {
-    return (a % 2 && b % 2) ? a + b - 1 : a + b;
-}
-void solve() {
-    
 }
 
-// Main
+void solve() {
+    ll n;
+    cin >> n;
+    cout << (specialNumbers.count(n) ? "YES\n" : "NO\n");
+}
+
 int main() {
-    Code By pdubey1924_macro  
-    const ll MAX_N = 10000000;
-    sieve(MAX_N);
-    
+    Code By pdubey1924_macro
+    precompute(); 
     ll t;
-    cin>>t;
-   while(t--){
+    cin >> t;
+    while (t--) {
         solve();
     }
     return 0;
 }
-// End
