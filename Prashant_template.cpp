@@ -259,9 +259,16 @@ void sieve(ll MAX_N) {
             primes.pb(i);
     }
 }
-
+ll f(ll a, ll b) {
+    return (a % 2 && b % 2) ? a + b - 1 : a + b;
+}
 void solve() {
-    
+        ll  X, Y, Z;
+        cin >> X >> Y >> Z;
+        if(X + Y + Z == 1)
+            cout << "Bob\n";
+        else
+            cout << "Alice\n";
 }
 
 // Main
@@ -275,8 +282,6 @@ int main() {
    while(t--){
         solve();
     }
-       
-    
     return 0;
 }
 // End
