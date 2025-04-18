@@ -263,7 +263,20 @@ ll f(ll a, ll b) {
     return (a % 2 && b % 2) ? a + b - 1 : a + b;
 }
 void solve() {
-   
+    ll n;
+	cin >> n;
+	int a[n + 1];
+	for (int i = 1; i <= n; i++) {
+		cin >> a[i];
+	}
+	ll res = 0;
+	vector<int> v;
+	for (int i = 1; i <= n; i++) {
+		if (a[i] >= i) {continue;}
+		res += (ll)(lower_bound(v.begin(), v.end(), a[i]) - v.begin());
+		v.push_back(i);
+	}
+	cout << res << '\n';
 }
 
 // Main

@@ -262,8 +262,33 @@ void sieve(ll MAX_N) {
 ll f(ll a, ll b) {
     return (a % 2 && b % 2) ? a + b - 1 : a + b;
 }
+
+ll get(int x) {
+    return x * 1ll * (x + 1) / 2;
+}
+
 void solve() {
-   
+    ll k;
+        ll x;
+        cin >> k >> x;
+        ll l = 1, r = 2 * k - 1;
+        ll res = 2 * k - 1;
+        bool over = false;
+        while (l <= r) {
+            ll mid = (l + r) >> 1;
+            if (mid >= k) {
+                over = (get(k) + get(k - 1) - get(2 * k - 1 - mid) >= x);
+            } else {
+                over = (get(mid) >= x);
+            }
+            if (over) {
+                res = mid;
+                r = mid - 1;
+            } else {
+                l = mid + 1;
+            }
+        }
+        cout << res << endl;
 }
 
 // Main
