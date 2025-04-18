@@ -243,6 +243,7 @@ struct DSU {
 // Code
 
 vll primes;
+const int MAX = 1e6;
 
 void sieve(ll MAX_N) {
     vector<bool> isPrime(MAX_N + 1, true);
@@ -263,7 +264,30 @@ ll f(ll a, ll b) {
     return (a % 2 && b % 2) ? a + b - 1 : a + b;
 }
 void solve() {
-    
+    ll n;
+	cin >> n;
+	vector<ll> a(n);
+	vector<ll> cnt(MAX + 1);
+	for (int i = 0; i < n; ++i) {
+		cin >> a[i];
+		++cnt[a[i]];
+	}
+	ll sum = accumulate(a.begin(), a.end(), 0ll);
+	
+	vector<ll> ans;
+	for (int i = 0; i < n; ++i) {
+		sum -= a[i];
+		--cnt[a[i]];
+		if (sum % 2 == 0 && sum / 2 <= MAX && cnt[sum / 2] > 0) {
+			ans.push_back(i);
+		}
+		sum += a[i];
+		++cnt[a[i]];
+	}
+	
+	cout << ans.size() << endl;
+	for (auto it : ans) cout << it + 1 << " ";
+	cout << endl;
 }
 
 // Main
@@ -271,12 +295,7 @@ int main() {
     Code By pdubey1924_macro  
     const ll MAX_N = 10000000;
     sieve(MAX_N);
-    
-    ll t;
-    cin>>t;
-   while(t--){
         solve();
-    }
     return 0;
 }
 // End

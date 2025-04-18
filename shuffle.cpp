@@ -263,7 +263,18 @@ ll f(ll a, ll b) {
     return (a % 2 && b % 2) ? a + b - 1 : a + b;
 }
 void solve() {
-    
+    ll n, x, m;
+    cin >> n >> x >> m;
+    ll l = x, r = x;
+    for (int i = 0; i < m; i++) {
+        ll L, R;
+        cin >> L >> R;
+        if (max(l, L) <= min(r, R)) {
+            l = min(l, L);
+            r = max(r, R);
+        }
+    }
+    cout << r - l + 1 << "\n";
 }
 
 // Main
