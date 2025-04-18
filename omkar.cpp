@@ -264,29 +264,18 @@ ll f(ll a, ll b) {
 }
 void solve() {
     ll n;
-    cin >> n;
-    vector<ll> a(n);
-    for (auto &i : a) cin >> i;
-
-    ll sum = 0;
-    for (int i = 0; i < n; i++) {
-        sum += a[i];
-        if (sum <= 0) {
-            cout << "NO\n";
-            return;
+        cin >> n;
+    ll p = 0;
+        for (int m = 2; m <= 100000; ++m) {
+            if (n % m == 0) {
+                p = m;
+                break;
+            }
         }
-    }
-
-    sum = 0;
-    for (int i = n - 1; i >= 0; i--) {
-        sum += a[i];
-        if (sum <= 0) {
-            cout << "NO\n";
-            return;
+        if (p == 0) {
+            p = n;
         }
-    }
-
-    cout << "YES\n";
+        cout << (n / p) << " " << (n - (n / p)) << endl;
 }
 
 // Main

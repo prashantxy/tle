@@ -263,30 +263,31 @@ ll f(ll a, ll b) {
     return (a % 2 && b % 2) ? a + b - 1 : a + b;
 }
 void solve() {
-    ll n;
-    cin >> n;
-    vector<ll> a(n);
-    for (auto &i : a) cin >> i;
-
-    ll sum = 0;
-    for (int i = 0; i < n; i++) {
-        sum += a[i];
-        if (sum <= 0) {
-            cout << "NO\n";
-            return;
-        }
-    }
-
-    sum = 0;
-    for (int i = n - 1; i >= 0; i--) {
-        sum += a[i];
-        if (sum <= 0) {
-            cout << "NO\n";
-            return;
-        }
-    }
-
-    cout << "YES\n";
+    int n;
+		cin >> n;
+		set<int> used;
+		for (int i = 2; i * i <= n; ++i) {
+			if (n % i == 0 && !used.count(i)) {
+				used.insert(i);
+				n /= i;
+				break;
+			}
+		}
+		for (int i = 2; i * i <= n; ++i) {
+			if (n % i == 0 && !used.count(i)) {
+				used.insert(i);
+				n /= i;
+				break;
+			}
+		}
+		if (int(used.size()) < 2 || used.count(n) || n == 1) {
+			cout << "NO" << endl;
+		} else {
+			cout << "YES" << endl;
+			used.insert(n);
+			for (auto it : used) cout << it << " ";
+			cout << endl;
+		}
 }
 
 // Main
