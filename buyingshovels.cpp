@@ -269,9 +269,7 @@ void solve() {
             cout << 1 << "\n";
             return;
         }
-
         ll best = 1;
-       
         for (ll d = 1; d * d <= n; d++) {
             if (n % d == 0) {
                 if (d <= k) 
