@@ -263,28 +263,34 @@ ll f(ll a, ll b) {
     return (a % 2 && b % 2) ? a + b - 1 : a + b;
 }
 void solve() {
-    ll n, k;
-    cin >> n >> k;
-
-    vector<ll> arr(n);
-    for (ll &x : arr) cin >> x;
-
-    ll answer = 0;
-    for (int i = 0; i <= n; ++i) {
-        vector<int> temp(arr.begin(), arr.begin() + i);
-        sort(temp.begin(), temp.end());
-
-        ll sum = 0;
-        for (int j = i - 1; j >= 0; j -= 2) {
-            sum += temp[j];
-        }
-
-        if (sum <= k) {
-            answer = i;
-        }
+    ll n;
+    cin >> n;
+    vector<ll> a(n), b(n);
+    for (int i = 0; i < n; i++) {
+      cin >> a[i];
+      --a[i];
     }
-
-    cout << answer << "\n"; 
+    for (int i = 0; i < n; i++) {
+      cin >> b[i];
+      --b[i];
+    }
+    vector<ll> pos(n);
+    for (int i = 0; i < n; i++) {
+      pos[b[i]] = i;
+    }
+    vector<ll> c(n);
+    for (int i = 0; i < n; i++) {
+      c[i] = pos[a[i]];
+    }
+    ll mx = -1, ans = 0;
+    for (int i = 0; i < n; i++) {
+      if (c[i] > mx) {
+        mx = c[i];
+      } else {
+        ++ans;
+      }
+    }
+    cout << ans << '\n';
 }
 
 // Main
