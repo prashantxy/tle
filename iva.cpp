@@ -7,7 +7,7 @@ using namespace std;
 // Speed
 #define Code ios_base::sync_with_stdio(false);
 #define By cin.tie(NULL);
-#define pdubey1924_macro cout.tie(NULL);
+#define pdubey1924_macro cout.tie(NULL); 
 
 // Aliases
 using ll = long long;
@@ -182,6 +182,7 @@ bool isPerfectSquare(ll x) {
 // Graph Algorithms Section
 //-------------------------
 
+// Depth-First Search (DFS) - Recursive implementation
 void dfs(int node, vector<bool> &visited, const vector<vector<int>> &graph) {
     visited[node] = true;
     for (int neighbor : graph[node]) {
@@ -189,6 +190,8 @@ void dfs(int node, vector<bool> &visited, const vector<vector<int>> &graph) {
             dfs(neighbor, visited, graph);
     }
 }
+
+// Breadth-First Search (BFS)
 void bfs(int start, vector<bool> &visited, const vector<vector<int>> &graph) {
     queue<int> q;
     q.push(start);
@@ -204,6 +207,8 @@ void bfs(int start, vector<bool> &visited, const vector<vector<int>> &graph) {
         }
     }
 }
+
+// Disjoint Set Union (Union-Find)
 struct DSU {
     vector<int> parent, rank;
     DSU(int n) {
@@ -229,8 +234,16 @@ struct DSU {
     }
 };
 
+//-------------------------
+// End of Graph Algorithms
+//-------------------------
+
+// Code by Prashant Dubey
+// Language C++
+// Code
 
 vll primes;
+
 void sieve(ll MAX_N) {
     vector<bool> isPrime(MAX_N + 1, true);
     isPrime[0] = isPrime[1] = false;
@@ -246,24 +259,74 @@ void sieve(ll MAX_N) {
             primes.pb(i);
     }
 }
-
 ll f(ll a, ll b) {
     return (a % 2 && b % 2) ? a + b - 1 : a + b;
 }
-
 void solve() {
-   
+    int n;
+    cin >> n;
+    vector<int>a(n+1);
+    for (int i = 1; i <= n; i++) 
+        cin >> a[i];
+        
+    vector<int> lg(n+2);
+    lg[1] = 0;
+    for (int i = 2; i <= n; i++) 
+        lg[i] = lg[i/2] + 1;
+    int K = lg[n] + 1;
+    vector<vector<int>> st(K, vector<int>(n+1));
+    for (int i = 1; i <= n; i++) 
+        st[0][i] = a[i];
+    for (int j = 1; j < K; j++) {
+        int len = 1 << (j-1);
+        for (int i = 1; i + (1<<j) - 1 <= n; i++) {
+            st[j][i] = st[j-1][i] & st[j-1][i + len];
+        }
+    }
+
+
+    auto range_and = [&](int l, int r){
+        int len = r - l + 1;
+        int j = lg[len];
+        int span = 1 << j;
+        return st[j][l] & st[j][r - span + 1];
+    };
+
+    int q;
+    cin >> q;
+    while (q--) {
+        int l, k;
+        cin >> l >> k;
+        if (a[l] < k) {
+            cout << -1 << " ";
+            continue;
+        }
+        int lo = l, hi = n, ans = l;
+        while (lo <= hi) {
+            int mid = (lo + hi) >> 1;
+            if (range_and(l, mid) >= k) {
+                ans = mid;
+                lo = mid + 1;
+            } else {
+                hi = mid - 1;
+            }
+        }
+        cout << ans << " ";
+    }
+    cout << "\n";
 }
+
 // Main
 int main() {
-    Code By pdubey1924_macro
-    const ll MAX_N = 1e5 + 5;
+    Code By pdubey1924_macro  
+    const ll MAX_N = 10000000;
     sieve(MAX_N);
-
+    
     ll t;
-    cin >> t;
-    while (t--) {
+    cin>>t;
+   while(t--){
         solve();
     }
     return 0;
 }
+// End

@@ -1,4 +1,3 @@
-#include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -178,10 +177,7 @@ bool isPerfectSquare(ll x) {
     return false;
 }
 
-//-------------------------
-// Graph Algorithms Section
-//-------------------------
-
+// Graph Algorithms
 void dfs(int node, vector<bool> &visited, const vector<vector<int>> &graph) {
     visited[node] = true;
     for (int neighbor : graph[node]) {
@@ -229,37 +225,55 @@ struct DSU {
     }
 };
 
-
-vll primes;
-void sieve(ll MAX_N) {
-    vector<bool> isPrime(MAX_N + 1, true);
-    isPrime[0] = isPrime[1] = false;
-    for (ll i = 2; i * i <= MAX_N; i++) {
-        if (isPrime[i]) {
-            for (ll j = i * i; j <= MAX_N; j += i) {
-                isPrime[j] = false;
-            }
-        }
-    }
-    for (ll i = 2; i <= MAX_N; i++) {
-        if (isPrime[i])
-            primes.pb(i);
-    }
-}
-
-ll f(ll a, ll b) {
-    return (a % 2 && b % 2) ? a + b - 1 : a + b;
-}
+struct Seg {
+    int l, r;
+    bool operator<(const Seg &oth) const {
+        if (l != oth.l)
+            return l < oth.l;
+        return r < oth.r;
+    };
+};
 
 void solve() {
-   
+    int n;
+    cin >> n;
+    vector<Seg> seg(n);
+    fl(i, n) cin >> seg[i].l >> seg[i].r;
+
+    vector<int> ans(n, 0);
+    fl(k, 2) {
+        vector<int> ord(n);
+        iota(ord.begin(), ord.end(), 0);
+
+        sort(ord.begin(), ord.end(), [&seg](int i, int j) {
+            if (seg[i].l != seg[j].l)
+                return seg[i].l < seg[j].l;
+            return seg[i].r > seg[j].r;
+        });
+
+        set<int> bounds;
+        for (int i : ord) {
+            auto it = bounds.lower_bound(seg[i].r);
+            if (it != bounds.end())
+                ans[i] += *it - seg[i].r;
+            bounds.insert(seg[i].r);
+        }
+
+        for (auto &s : seg) {
+            s.l = -s.l;
+            s.r = -s.r;
+            swap(s.l, s.r);
+        }
+    }
+
+    map<Seg, int> cnt;
+    for (auto s : seg) cnt[s]++;
+    fl(i, n) if (cnt[seg[i]] > 1) ans[i] = 0;
+    for (int a : ans) cout << a << '\n';
 }
-// Main
+
 int main() {
     Code By pdubey1924_macro
-    const ll MAX_N = 1e5 + 5;
-    sieve(MAX_N);
-
     ll t;
     cin >> t;
     while (t--) {

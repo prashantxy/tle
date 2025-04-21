@@ -7,7 +7,7 @@ using namespace std;
 // Speed
 #define Code ios_base::sync_with_stdio(false);
 #define By cin.tie(NULL);
-#define pdubey1924_macro cout.tie(NULL);
+#define pdubey1924_macro cout.tie(NULL); 
 
 // Aliases
 using ll = long long;
@@ -182,6 +182,7 @@ bool isPerfectSquare(ll x) {
 // Graph Algorithms Section
 //-------------------------
 
+// Depth-First Search (DFS) - Recursive implementation
 void dfs(int node, vector<bool> &visited, const vector<vector<int>> &graph) {
     visited[node] = true;
     for (int neighbor : graph[node]) {
@@ -189,6 +190,8 @@ void dfs(int node, vector<bool> &visited, const vector<vector<int>> &graph) {
             dfs(neighbor, visited, graph);
     }
 }
+
+// Breadth-First Search (BFS)
 void bfs(int start, vector<bool> &visited, const vector<vector<int>> &graph) {
     queue<int> q;
     q.push(start);
@@ -204,6 +207,8 @@ void bfs(int start, vector<bool> &visited, const vector<vector<int>> &graph) {
         }
     }
 }
+
+// Disjoint Set Union (Union-Find)
 struct DSU {
     vector<int> parent, rank;
     DSU(int n) {
@@ -229,8 +234,16 @@ struct DSU {
     }
 };
 
+//-------------------------
+// End of Graph Algorithms
+//-------------------------
+
+// Code by Prashant Dubey
+// Language C++
+// Code
 
 vll primes;
+
 void sieve(ll MAX_N) {
     vector<bool> isPrime(MAX_N + 1, true);
     isPrime[0] = isPrime[1] = false;
@@ -246,24 +259,50 @@ void sieve(ll MAX_N) {
             primes.pb(i);
     }
 }
-
 ll f(ll a, ll b) {
     return (a % 2 && b % 2) ? a + b - 1 : a + b;
 }
-
-void solve() {
-   
+bool check(int k, const vector<pair<int, int>>& seg) {
+    int ll = 0, rr = 0;
+    for (const auto& e : seg) {
+        ll = max(ll - k, e.first);
+        rr = min(rr + k, e.second);
+        if (ll > rr)
+            return false;
+    }
+    return true;
 }
+void solve() {
+    int n;
+    cin >> n;
+    vector<pair<int, int>> seg(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> seg[i].first >> seg[i].second;
+    }
+
+    int l = -1, r = 1e9;
+    while (r - l > 1) {
+        int mid = (r + l) / 2;
+        if (check(mid, seg)) {
+            r = mid;
+        } else {
+            l = mid;
+        }
+    }
+    cout << r << endl;
+}
+
 // Main
 int main() {
-    Code By pdubey1924_macro
-    const ll MAX_N = 1e5 + 5;
+    Code By pdubey1924_macro  
+    const ll MAX_N = 10000000;
     sieve(MAX_N);
-
+    
     ll t;
-    cin >> t;
-    while (t--) {
+    cin>>t;
+   while(t--){
         solve();
     }
     return 0;
 }
+// End
