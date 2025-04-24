@@ -252,7 +252,39 @@ ll f(ll a, ll b) {
 }
 
 void solve() {
-   
+    ll n, q;
+    cin >> n >> q;
+    vll p(n+1), pos(n+1);
+    for (ll i = 1; i <= n; i++) {
+        cin >> p[i];
+        pos[p[i]] = i;
+    }
+    while (q--) {
+        ll l, r, x;
+        cin >> l >> r >> x;
+        ll m = pos[x];
+        if (m < l || m > r) {
+            print(-1);
+            continue;
+        }
+        ll L = l, R = r;
+        ll left = 0,right = 0;
+        while (L <= R) {
+            ll mid = (L + R) / 2;
+            if (mid == m) break;
+            if (mid < m) {
+                
+                if (p[mid] > x) left++;
+                L = mid + 1;
+            } else {
+                
+                if (p[mid] < x) right++;
+                R = mid - 1;
+            }
+        }
+        ll b = left + right;
+        print(2 * b);
+}
 }
 // Main
 int main() {
