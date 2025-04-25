@@ -252,7 +252,24 @@ ll f(ll a, ll b) {
 }
 
 void solve() {
-    
+    ll n, c;
+    cin >> n >> c;
+    vll s(n);
+    for (int i = 0; i < n; i++) cin >> s[i];
+    ll odd = 0, even = 0;
+    ll ans = (c + 1) * (c + 2) / 2;
+    for (int i = 0; i < n; i++) {
+        ans -= s[i] / 2 + 1;
+        ans -= c - s[i] + 1;
+        if (s[i] % 2 == 0) {
+            even++;
+        } else {
+            odd++;
+        }
+    }
+    ans += even * (even + 1) / 2;
+    ans += odd * (odd + 1) / 2;
+    cout << ans << "\n";
 
 }
 // Main
