@@ -251,8 +251,44 @@ ll f(ll a, ll b) {
     return (a % 2 && b % 2) ? a + b - 1 : a + b;
 }
 
+const ll NEG_INF = LLONG_MIN / 4;
+
 void solve() {
-    
+    ll m;
+    ll x;
+    cin >> m >> x;
+    vll c(m), h(m);
+    ll Hsum = 0;
+    for(int i = 0; i < m; ++i){
+        cin >> c[i] >> h[i];
+        Hsum += h[i];
+    }
+
+    vll dpPrev(Hsum + 1, NEG_INF), dpCurr(Hsum + 1, NEG_INF);
+    dpPrev[0] = 0;
+
+    for(int i = 0; i < m; ++i){
+        fill(dpCurr.begin(), dpCurr.end(), NEG_INF);
+        for(ll H = 0; H <= Hsum; ++H){
+            ll money = dpPrev[H];
+            if(money < 0) continue;
+            dpCurr[H] = max(dpCurr[H], money + x);
+            if(money >= c[i] && H + h[i] <= Hsum){
+                dpCurr[H + h[i]] = max(dpCurr[H + h[i]], money - c[i] + x);
+            }
+        }
+        dpPrev.swap(dpCurr);
+    }
+
+    ll answer = 0;
+    for(ll H = Hsum; H >= 0; --H){
+        if(dpPrev[H] >= 0){
+            answer = H;
+            break;
+        }
+    }
+
+    cout << answer << '\n';
 }
 // Main
 int main() {
