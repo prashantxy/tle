@@ -251,11 +251,30 @@ ll f(ll a, ll b) {
     return (a % 2 && b % 2) ? a + b - 1 : a + b;
 }
 
-
 void solve() {
-
-   
-
+    string s;
+    ll pos;
+    cin >> s >> pos;
+    --pos;
+    
+    ll curLen = s.size();
+    vector <char> st;
+    bool ok = pos < curLen;
+    s += '$';
+    
+    for (auto c : s) {
+        while (!ok && st.size() > 0 && st.back() > c) {
+            pos -= curLen;
+            --curLen;
+            st.pop_back();
+            
+            if(pos < curLen) 
+                ok = true;
+        }
+        st.push_back(c);
+    }
+    
+    cout << st[pos];
 }
 // Main
 int main() {

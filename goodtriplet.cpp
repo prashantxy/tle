@@ -251,10 +251,24 @@ ll f(ll a, ll b) {
     return (a % 2 && b % 2) ? a + b - 1 : a + b;
 }
 
-
 void solve() {
-
-   
+    ll n;
+        cin >> n;
+        ll cnt = 1;
+        while (n > 0) {
+            ll d = n % 10;
+            n /= 10;
+            ll mul = 0;
+            for (int i = 0; i <= d; ++i) {
+                for (int j = 0; j <= d; ++j) {
+                    if (d - i - j >= 0) {
+                        mul++;
+                    }
+                }
+            }
+            cnt *= mul;
+        }
+        cout << cnt << endl;
 
 }
 // Main
