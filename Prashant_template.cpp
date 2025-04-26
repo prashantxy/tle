@@ -254,8 +254,6 @@ ll f(ll a, ll b) {
 
 void solve() {
 
-   
-
 }
 // Main
 int main() {
