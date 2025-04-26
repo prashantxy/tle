@@ -251,12 +251,40 @@ ll f(ll a, ll b) {
     return (a % 2 && b % 2) ? a + b - 1 : a + b;
 }
 
-int next(int x) {
+ll next(ll x) {
     return x + x % 10;
 }
 
 void solve() {
+  ll n;
+  cin>>n;
+  vll a(n);
+  bool pyaar = false;
+  fl(i,n){
+    cin >> a[i];
+    if(a[i] % 10 == 5){
+        pyaar = true;
+        a[i] = next(a[i]);
+    }
+  }
+  if (pyaar) {
+    cout << (*min_element(a.begin(), a.end()) == *max_element(a.begin(), a.end()) ? "Yes": "No") << '\n';
+} else {
+    bool dhokha = false, cheat = false;
+    fl(i,n) {
+        ll x = a[i];
+        while (x % 10 != 2) {
+            x = next(x);
+        }
+        if (x % 20 == 2) {
+            dhokha = true;
+        } else {
+            cheat = true;
+        }
+    }
 
+cout << ((dhokha & cheat) ? "No" : "Yes") << '\n';
+}
 }
 // Main
 int main() {

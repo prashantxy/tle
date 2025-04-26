@@ -251,12 +251,56 @@ ll f(ll a, ll b) {
     return (a % 2 && b % 2) ? a + b - 1 : a + b;
 }
 
-int next(int x) {
-    return x + x % 10;
-}
 
 void solve() {
+    ll n;
+    cin >> n;
+    string s;
+    cin >> s;
+    vll balanced(n + 1);
+    fl(i,n){
+        if( s[i] == '(')
+          balanced[i+1] = balanced[i] + 1;
+        else
+          balanced[i+1] = balanced[i] - 1; 
+    }
 
+        
+    if(balanced.back() != 0){
+        cout << -1 << endl;
+     }
+     else{
+        if(*min_element(balanced.begin(), balanced.end()) == 0 || *max_element(balanced.begin(), balanced.end()) == 0){
+            cout << 1 << endl;
+                fl(i,n)
+                {
+                    if(i) cout << " ";
+                    cout << 1;
+                }
+                cout << endl;
+        }
+        else{
+            cout << 2 << endl;
+                vector<ll> ans;
+                int cur = 0;
+                while(cur < n)  //no issue ab
+                {
+                    int w = (s[cur] == '(' ? 1 : 2);
+                    do
+                    {
+                        cur++;
+                        ans.push_back(w);
+                    }
+                    while(balanced[cur] != 0);
+                }
+                fl(i,n)
+                {
+                    if(i) cout << " ";
+                    cout << ans[i];
+                }
+                cout << endl;
+        }
+     }
 }
 // Main
 int main() {
