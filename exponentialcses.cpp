@@ -247,17 +247,45 @@ void sieve(ll MAX_N) {
     }
 }
 
-ll f(ll a, ll b) {
-    return (a % 2 && b % 2) ? a + b - 1 : a + b;
-}
 
-ll next(ll x) {
-    return x + x % 10;
+ 
+const int MOD = 1e9 + 7;
+
+ll binpow(ll a, ll b, ll m) {
+    ll ans = 1;
+    a %= m;
+    while (b > 0) {
+        if (b & 1) ans = (ans * a) % m;
+        a = (a * a) % m;
+        b >>= 1;
+    }
+    return ans;
 }
 
 void solve() {
-   
+    ll n;
+    cin >> n;
+    vll a(n);
+    fl(i, n)
+        cin >> a[i];
+
+    vector<ll> count(1000001, 0);
+    for (auto x : a) {
+        count[x]++;
+    }
+
+    for (int i = 1000000; i >= 1; i--) {
+        ll multiples = 0;
+        for (int j = i; j <= 1000000; j += i) {
+            multiples += count[j];
+        }
+        if (multiples >= 2) {
+            cout << i << "\n";
+            return;
+        }
+    }
 }
+
 
 
 // Main
@@ -265,11 +293,8 @@ int main() {
     Code By pdubey1924_macro
     const ll MAX_N = 1e5 + 5;
     sieve(MAX_N);
-
-    ll t;
-    cin >> t;
-    while (t--) {
+   
         solve();
-    }
+    
     return 0;
 }
