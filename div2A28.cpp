@@ -34,10 +34,11 @@ typedef map<ll, ll> mll;
 #define mp make_pair
 #define fl(i, n) for (int i = 0; i < n; i++)
 #define rl(i, m, n) for (int i = n; i >= m; i--)
+#define rv(v) (v).rbegin(), (v).rend()
 #define pm cout << "-1\n";
 #define pn cout << "NO\n";
 #define vr(v) v.begin(), v.end()
-#define rv(v) v.end(), v.begin()
+
 
 // Debug
 #ifdef Prashant
@@ -229,7 +230,6 @@ struct DSU {
     }
 };
 
-
 vll primes;
 void sieve(ll MAX_N) {
     vector<bool> isPrime(MAX_N + 1, true);
@@ -255,49 +255,65 @@ ll next(ll x) {
     return x + x % 10;
 }
 
-void solve() {
-    ll n,m; cin >> n >> m;
-    ll n0 = n;
-    int cnt2 = 0, cnt5 = 0;
-    ll k = 1;
-    while (n > 0 && n % 2 == 0) {
-        n /= 2;
-        cnt2++;
-    }
-    while (n > 0 && n % 5 == 0) {
-        n /= 5;
-        cnt5++;
-    }
-    while (cnt2 < cnt5 && k * 2 <= m) {
-        cnt2++;
-        k *= 2;
-    }
-    while (cnt5 < cnt2 && k * 5 <= m) {
-        cnt5++;
-        k *= 5;
-    }
-    while (k * 10 <= m) {
-        k *= 10;
-    }
-    if (k == 1) {
-        cout << n0 * m << endl;
-    } else {
-        k *= m / k; 
-        cout << n0 * k << endl;
-    }
+bool beat(int i,int j,int n) {
+    if (i == 1 && j == n) return true;
+    if (i == n && j == 1) return false;
+    return i > j;
 }
+
+void solve() {
+    ll n;
+    cin >> n;
+    vll a(n);
+    cin >> a;
+
+    ll pos = -1;
+    ll ans0 = 0;
+
+    for (ll i = 0; i < n; i++) {
+        if (a[i] == 0) {
+            pos = i;
+        }
+        if (pos != -1) {
+            ans0 += pos + 1;
+        }
+    }
+
+    ll cnt1 = 0, cnt2 = 0;
+    ll bal = 0;
+    ll ansP = 0;
+
+    for (ll i = 0; i < n; i++) {
+        if (a[i] == 0) {
+            cnt1 = 0;
+            cnt2 = 0;
+            bal = 0;
+            continue;
+        }
+        if (bal % 2 == 0)
+            cnt1++;
+        else
+            cnt2++;
+        if (a[i] < 0)
+            bal++;
+        if (bal % 2 == 0)
+            ansP += cnt1;
+        else
+            ansP += cnt2;
+    }
+
+    cout << (n * 1LL * (n + 1)) / 2 - ans0 - ansP << ' ' << ansP << endl;
+}
+
 
 
 // Main
 int main() {
     Code By pdubey1924_macro
-    const ll MAX_N = 1e5 + 5;
+    const ll MAX_N = 1e9 + 7;  
     sieve(MAX_N);
-
-    ll t;
-    cin >> t;
-    while (t--) {
+    
         solve();
-    }
+    
     return 0;
 }
