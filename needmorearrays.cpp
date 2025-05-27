@@ -264,17 +264,22 @@ void solve() {
    ll n;
    cin>>n;
    vll a(n);
-   ll temp = -1;
-   ll ans = 0;
-   fl(i,n){
+  fl(i,n){
     cin>>a[i];
-    if(a[i] - temp > 1){
-        ans++;
-        temp = a[i];
+  }
+ // ll one = count(a.begin(),a.end(),1);
+  ll zero = accumulate(a.begin(),a.end(),0);
+  if(zero == n){
+    cout<<"YES"<<endl;
+    return;
+  }
+  fl(i,n-1){
+    if(!a[i] and !a[i+1]){
+        cout<<"YES"<<endl;
+        return;
     }
-   }
-   cout<<ans<<endl;
-
+  }
+   cout<<"NO"<<endl;
 }
 
 // Main
