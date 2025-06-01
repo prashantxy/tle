@@ -261,19 +261,16 @@ void sieve(ll MAX_N) {
 }
 
 void solve() {
-   ll n,m;
-   cin>>n>>m;
-   vll a(n);
-  fl(i,n){
-    cin>>a[i];
-  }
-   ll ans = 0;
- fl(i,n){
-  if(a[i] == i+1){
-        ans++;
-    }
- }
-   cout<<ans<<endl;
+   ll a,b,c,d;
+   cin>>a>>b>>c>>d;
+   ll num1 = min(a,c);
+   ll num2 = min(b,d);
+   if(num1>=num2){
+    cout<<"Gellyfish"<<endl;
+   }
+   else{
+    cout<<"Flower"<<endl;
+   }
 }
 
 // Main
