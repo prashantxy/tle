@@ -259,10 +259,48 @@ void sieve(ll MAX_N) {
             primes.pb(i);
     }
 }
+   
+int max_op(int a, int b) {
+    int min_part = a;
+    while (min_part % 2 == 0 && min_part / 2 != b) {
+        min_part /= 2;
+    }
+    if (min_part % 2 == 1) {
+        return a / min_part;
+    }
+    int true_min = min_part;
+    while (true_min % 2 == 0) {
+        true_min /= 2;
+    }
+    return 1 + (a - min_part) / true_min;
+}
 
 void solve() {
- 
+    ll n,k;
+    cin>>n>>k;
+    vll a(n);
+    fl(i,n) cin>>a[i];
+
+    vll pre(n,0), suf(n,0);
+
+    for (int j = 1; j < n; j++) {
+        pre[j] = pre[j-1] + max_op(a[j-1], a[j]);
+    }
+
+    for (int i = n-2; i >= 0; i--) {
+        suf[i] = suf[i+1] + max_op(a[i+1], a[i]);
+    }
+
+    for (int i = 0; i < n; i++) {
+        ll res = max_op(a[i], 0) + pre[i] + suf[i];
+        if(res >= k) {
+            cout << "YES\n";
+            return;
+        }
+    }
+    cout << "NO\n";
 }
+
 
 // Main
 int main() {
@@ -271,8 +309,11 @@ int main() {
     sieve(MAX_N);
     
     
-   
-        solve();
+     int t;
+     cin>>t;
+     while(t--){
+      solve();
+     }
     
     return 0;
 }
