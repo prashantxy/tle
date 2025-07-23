@@ -276,29 +276,9 @@ int max_op(int a, int b) {
 }
 
 void solve() {
-    ll n,k;
-    cin>>n>>k;
-    vll a(n);
-    fl(i,n) cin>>a[i];
-
-    vll pre(n,0), suf(n,0);
-
-    for (int j = 1; j < n; j++) {
-        pre[j] = pre[j-1] + max_op(a[j-1], a[j]);
-    }
-
-    for (int i = n-2; i >= 0; i--) {
-        suf[i] = suf[i+1] + max_op(a[i+1], a[i]);
-    }
-
-    for (int i = 0; i < n; i++) {
-        ll res = max_op(a[i], 0) + pre[i] + suf[i];
-        if(res >= k) {
-            cout << "YES\n";
-            return;
-        }
-    }
-    cout << "NO\n";
+ ll a,b,k;
+ cin>> a >> b >> k;
+ cout<<(max(a/__gcd(a, b), b/__gcd(a, b))<=k?1:2)<<"\n";
 }
 
 
@@ -307,8 +287,6 @@ int main() {
     Code By pdubey1924_macro  
     const ll MAX_N = 10000000;
     sieve(MAX_N);
-    
-    
      int t;
      cin>>t;
      while(t--){
