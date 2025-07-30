@@ -2,24 +2,18 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// #define Prashant 1
-
-// Speed
 #define Code ios_base::sync_with_stdio(false);
 #define By cin.tie(NULL);
 #define pdubey1924_macro cout.tie(NULL);
 
-// Aliases
 using ll = long long;
 using lld = long double;
 using ull = unsigned long long;
 
-// Constants
 const lld pi = 3.141592653589793238;
 const ll INF = LONG_LONG_MAX;
 const ll mod = 1e9 + 7;
 
-// TypeDEf
 typedef pair<ll, ll> pll;
 typedef vector<ll> vll;
 typedef vector<pll> vpll;
@@ -27,7 +21,6 @@ typedef vector<string> vs;
 typedef unordered_map<ll, ll> umll;
 typedef map<ll, ll> mll;
 
-// Macros
 #define ff first
 #define ss second
 #define pb push_back
@@ -38,8 +31,6 @@ typedef map<ll, ll> mll;
 #define pn cout << "NO\n";
 #define vr(v) v.begin(), v.end()
 #define rv(v) v.end(), v.begin()
-
-// Debug
 #ifdef Prashant
 #define debug(x)       \
     cerr << #x << " "; \
@@ -48,8 +39,6 @@ typedef map<ll, ll> mll;
 #else
 #define debug(x) ;
 #endif
-
-// Operator overloads
 template <typename T1, typename T2>
 istream &operator>>(istream &istream, pair<T1, T2> &p) {
     return (istream >> p.first >> p.second);
@@ -70,8 +59,6 @@ ostream &operator<<(ostream &ostream, const vector<T> &c) {
         cout << it << " ";
     return ostream;
 }
-
-// Utility functions
 template <typename T>
 void print(T &&t) { cout << t << "\n"; }
 void printarr(ll arr[], ll n) {
@@ -91,8 +78,6 @@ ll sumvec(vector<T> v) {
     fl(i, n) s += v[i];
     return s;
 }
-
-// Mathematical functions
 ll gcd(ll a, ll b) {
     if (b == 0)
         return a;
@@ -122,12 +107,8 @@ ll powermod(ll x, ll y, ll p) {
     }
     return res;
 }
-
-// Sorting
 bool sorta(const pair<int, int> &a, const pair<int, int> &b) { return (a.second < b.second); }
 bool sortd(const pair<int, int> &a, const pair<int, int> &b) { return (a.second > b.second); }
-
-// Bits
 string decToBinary(int n) {
     string s = "";
     int i = 0;
@@ -150,8 +131,6 @@ ll binaryToDecimal(string n) {
     }
     return dec_value;
 }
-
-// Check
 bool isPrime(ll n) {
     if (n <= 1)
         return false;
@@ -177,12 +156,6 @@ bool isPerfectSquare(ll x) {
     }
     return false;
 }
-
-//-------------------------
-// Graph Algorithms Section
-//-------------------------
-
-// Depth-First Search (DFS) - Recursive implementation
 void dfs(int node, vector<bool> &visited, const vector<vector<int>> &graph) {
     visited[node] = true;
     for (int neighbor : graph[node]) {
@@ -190,8 +163,6 @@ void dfs(int node, vector<bool> &visited, const vector<vector<int>> &graph) {
             dfs(neighbor, visited, graph);
     }
 }
-
-// Breadth-First Search (BFS)
 void bfs(int start, vector<bool> &visited, const vector<vector<int>> &graph) {
     queue<int> q;
     q.push(start);
@@ -293,19 +264,14 @@ void solve() {
     else
         cout << "No\n";
 }
-
-// Main
 int main() {
     Code By pdubey1924_macro  
     const ll MAX_N = 10000000;
     sieve(MAX_N);
-    
     int t;
     cin >> t;
     while(t--) {
         solve();
     }
-    
     return 0;
 }
-// End
